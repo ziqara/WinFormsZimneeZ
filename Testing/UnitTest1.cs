@@ -44,7 +44,7 @@ namespace Testing
             {
                 new List<SellProduct>
                 {
-                    new SellProduct("Product1", "Category1", 100, 0, new DateTime(2023, 10, 5)),
+                    new SellProduct("Product1", "Category1", 200, 0, new DateTime(2023, 10, 5)),
                     new SellProduct("Product2", "Category2", 200, 0, new DateTime(2023, 10, 5)),
                     new SellProduct("Product3", "Category1", 300, 0, new DateTime(2023, 10, 5)),
                     new SellProduct("Product4", "Category3", 400, 2, new DateTime(2023, 08, 20))
