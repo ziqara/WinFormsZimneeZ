@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -8,11 +9,12 @@ namespace MyLib
 {
      public class ProductInfo
     {
-        private string Name { get; set; }
-        private string Category { get; set; }
-        private decimal Price { get; set; }
-        private int Residue { get; set; }
-        private DateTime LastSell { get; set; }
+
+        public string Name { get; set; }
+        public string Category { get; set; }
+        public decimal Price { get; set; }
+        public int Residue { get; set; }
+        public DateTime LastSell { get; set; }
 
         public ProductInfo(string name_, string category_, decimal price_, int residue_, DateTime lastsell_)
         {
@@ -22,7 +24,6 @@ namespace MyLib
             Residue = residue_;
             LastSell = lastsell_;
         }
-
         public string GetName() { return Name; }
         public string GetCategory() { return Category; }
         public decimal GetPrice() { return Price; }

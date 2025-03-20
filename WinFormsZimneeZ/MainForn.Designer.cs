@@ -55,6 +55,7 @@
             this.DefButton.TabIndex = 1;
             this.DefButton.Text = "Дефицитные товары";
             this.DefButton.UseVisualStyleBackColor = true;
+            this.DefButton.Click += new System.EventHandler(this.DefButton_Click);
             // 
             // TopButton
             // 
