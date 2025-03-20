@@ -1,20 +1,20 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
-using System.Data;
-using System.Drawing;
+using System.Diagnostics;
+using System.Globalization;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Xml.Linq;
 
-namespace WinFormsZimneeZ
+namespace MyLib
 {
-    public partial class Form1: Form
+    public class LoadCsvSaveHtml
     {
-        public Form1()
-        {
-            InitializeComponent();
-        }
+ 
     }
 }
+
