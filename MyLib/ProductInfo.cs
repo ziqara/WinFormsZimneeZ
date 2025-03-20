@@ -8,9 +8,7 @@ using System.Threading.Tasks;
 namespace MyLib
 {
      public class ProductInfo
-    {
-
-
+     {
         public string Name { get; set; }
         public string Category { get; set; }
         public decimal Price { get; set; }
@@ -31,11 +29,7 @@ namespace MyLib
             LastSell = lastSell_;
         }
 
-        public string GetName() { return Name; }
-        public string GetCategory() { return Category; }
-        public decimal GetPrice() { return Price; }
-        public int GetResidue() { return Residue; }
-        public DateTime GetLastSell() { return LastSell; }
+        
 
         public override bool Equals(object obj)
         {

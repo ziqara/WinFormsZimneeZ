@@ -36,6 +36,8 @@
             this.LoadCsvButton = new System.Windows.Forms.Button();
             this.SaveHtmlButton = new System.Windows.Forms.Button();
             this.openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
+            this.SeasonBox = new System.Windows.Forms.TextBox();
+            this.label1 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.ProductTable)).BeginInit();
             this.SuspendLayout();
             // 
@@ -49,7 +51,7 @@
             // 
             // DefButton
             // 
-            this.DefButton.Location = new System.Drawing.Point(40, 160);
+            this.DefButton.Location = new System.Drawing.Point(40, 38);
             this.DefButton.Name = "DefButton";
             this.DefButton.Size = new System.Drawing.Size(245, 23);
             this.DefButton.TabIndex = 1;
@@ -59,7 +61,7 @@
             // 
             // TopButton
             // 
-            this.TopButton.Location = new System.Drawing.Point(40, 189);
+            this.TopButton.Location = new System.Drawing.Point(40, 67);
             this.TopButton.Name = "TopButton";
             this.TopButton.Size = new System.Drawing.Size(245, 23);
             this.TopButton.TabIndex = 2;
@@ -69,16 +71,17 @@
             // 
             // SeasonButton
             // 
-            this.SeasonButton.Location = new System.Drawing.Point(40, 218);
+            this.SeasonButton.Location = new System.Drawing.Point(40, 239);
             this.SeasonButton.Name = "SeasonButton";
             this.SeasonButton.Size = new System.Drawing.Size(245, 23);
             this.SeasonButton.TabIndex = 3;
             this.SeasonButton.Text = "Сезонные товары";
             this.SeasonButton.UseVisualStyleBackColor = true;
+            this.SeasonButton.Click += new System.EventHandler(this.SeasonButton_Click);
             // 
             // TrendButton
             // 
-            this.TrendButton.Location = new System.Drawing.Point(40, 247);
+            this.TrendButton.Location = new System.Drawing.Point(40, 373);
             this.TrendButton.Name = "TrendButton";
             this.TrendButton.Size = new System.Drawing.Size(245, 23);
             this.TrendButton.TabIndex = 4;
@@ -87,7 +90,7 @@
             // 
             // LoadCsvButton
             // 
-            this.LoadCsvButton.Location = new System.Drawing.Point(40, 131);
+            this.LoadCsvButton.Location = new System.Drawing.Point(316, 402);
             this.LoadCsvButton.Name = "LoadCsvButton";
             this.LoadCsvButton.Size = new System.Drawing.Size(245, 23);
             this.LoadCsvButton.TabIndex = 5;
@@ -97,7 +100,7 @@
             // 
             // SaveHtmlButton
             // 
-            this.SaveHtmlButton.Location = new System.Drawing.Point(40, 277);
+            this.SaveHtmlButton.Location = new System.Drawing.Point(853, 402);
             this.SaveHtmlButton.Name = "SaveHtmlButton";
             this.SaveHtmlButton.Size = new System.Drawing.Size(245, 23);
             this.SaveHtmlButton.TabIndex = 6;
@@ -108,11 +111,29 @@
             // 
             this.openFileDialog1.FileName = "openFileDialog1";
             // 
+            // SeasonBox
+            // 
+            this.SeasonBox.Location = new System.Drawing.Point(40, 213);
+            this.SeasonBox.Name = "SeasonBox";
+            this.SeasonBox.Size = new System.Drawing.Size(245, 20);
+            this.SeasonBox.TabIndex = 7;
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(37, 197);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(134, 13);
+            this.label1.TabIndex = 8;
+            this.label1.Text = "Введите процент продаж";
+            // 
             // MainForn
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1149, 450);
+            this.Controls.Add(this.label1);
+            this.Controls.Add(this.SeasonBox);
             this.Controls.Add(this.SaveHtmlButton);
             this.Controls.Add(this.LoadCsvButton);
             this.Controls.Add(this.TrendButton);
@@ -124,6 +145,7 @@
             this.Text = "Product";
             ((System.ComponentModel.ISupportInitialize)(this.ProductTable)).EndInit();
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 
@@ -137,6 +159,8 @@
         private System.Windows.Forms.Button LoadCsvButton;
         private System.Windows.Forms.Button SaveHtmlButton;
         private System.Windows.Forms.OpenFileDialog openFileDialog1;
+        private System.Windows.Forms.TextBox SeasonBox;
+        private System.Windows.Forms.Label label1;
     }
 }
 

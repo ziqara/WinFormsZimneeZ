@@ -14,16 +14,16 @@ namespace WinFormsZimneeZ
 {
     public partial class MainForn : Form
     {
-        private SalesHistory Histroy;
+        private SalesHistory History;
         private LoadCsvSaveHtml csvLoader;
 
         public MainForn()
         {
             InitializeComponent();
-            Histroy = new SalesHistory();
+            History = new SalesHistory();
             csvLoader = new LoadCsvSaveHtml();
-            Histroy.AddAllSales();
-            ProductTable.DataSource = Histroy.GetAllSales();       
+            History.AddAllSales();
+            ProductTable.DataSource = History.GetAllSales();       
         }
 
         private void LoadCsvButton_Click(object sender, EventArgs e)
@@ -37,7 +37,7 @@ namespace WinFormsZimneeZ
                 string filePath = openFileDialog.FileName;
                 try
                 {
-                    csvLoader.LoadCsvData(filePath, Histroy);
+                    csvLoader.LoadCsvData(filePath, History);
                 }
                 catch (Exception ex)
                 {
@@ -48,7 +48,7 @@ namespace WinFormsZimneeZ
 
         private void DefButton_Click(object sender, EventArgs e)
         {
-            BindingList<ProductInfo> Items = Histroy.GetProductsWithZeroResidueAndLatestSale();
+            BindingList<ProductInfo> Items = History.GetProductsWithZeroResidueAndLatestSale();
 
             ProductTable.DataSource = Items;
         }
@@ -56,8 +56,26 @@ namespace WinFormsZimneeZ
         private void TopButton_Click(object sender, EventArgs e)
         {
 
-            BindingList<ProductInfo> Items = Histroy.ShowBestSellingProducts();
+            BindingList<ProductInfo> Items = History.ShowBestSellingProducts();
             ProductTable.DataSource = Items;
+        }
+
+        private void SeasonButton_Click(object sender, EventArgs e)
+        {
+            if (!decimal.TryParse(SeasonBox.Text, out decimal percentageThreshold))
+            {
+                MessageBox.Show("Пожалуйста, введите корректное числовое значение для процента.");
+                return;
+            }
+
+            // Получаем BindingList из History
+            BindingList<ProductInfo> allProducts = History.GetAllSales();
+
+            // Получаем список сезонных товаров
+            BindingList<ProductInfo> seasonalProducts = History.FindSeasonalProducts(allProducts, percentageThreshold); // Вызываем метод через объект History
+
+            // Обновляем DataGridView
+            ProductTable.DataSource = seasonalProducts;
         }
     }
 }

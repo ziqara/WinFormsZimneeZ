@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using MyLib;
 
@@ -9,66 +10,113 @@ namespace Testing
     public class TSellProduct
     {
         [TestMethod]
-        [DynamicData(nameof(GetTestCases), DynamicDataSourceType.Method)]
-        public void TestGetProductsWithLastSaleResidueZero_DynamicData(
-            List<ProductInfo> products,
-            List<ProductInfo> expected)
+        [DynamicData(nameof(FindSeasonalProductsData), DynamicDataSourceType.Method)]
+        public void FindSeasonalProducts_DynamicData(BindingList<ProductInfo> inputData, decimal percentageThreshold, BindingList<ProductInfo> expectedResult)
         {
-            // Act
-            var actual = SalesHistory.GetProductsWithZeroResidueAndLatestSale(products);
+            SalesHistory history = new SalesHistory();
 
-            // Assert
-            CollectionAssert.AreEquivalent(expected, actual);
-        }
+            BindingList<ProductInfo> actualResult = history.FindSeasonalProducts(inputData, percentageThreshold);
 
-        public static IEnumerable<object[]> GetTestCases()
-        {
-            // Тестовый кейс 1: Один продукт с последней датой и нулевым остатком
-            yield return new object[]
+
+
+            // Проверяем, что количество элементов в ожидаемом и фактическом результатах совпадает
+            Assert.AreEqual(expectedResult.Count, actualResult.Count);
+
+            // Сравниваем каждый объект ProductInfo в ожидаемом и фактическом результатах
+            for (int i = 0; i < expectedResult.Count; i++)
             {
-                new List<ProductInfo>
-                {
-                    new ProductInfo("Product1", "Category1", 100, 1, new DateTime(2023, 10, 1)),
-                    new ProductInfo("Product2", "Category2", 200, 0, new DateTime(2023, 10, 5)),
-                    new ProductInfo("Product3", "Category1", 300, 2, new DateTime(2023, 10, 5)),
-                    new ProductInfo("Product4", "Category3", 400, 2, new DateTime(2023, 8, 20))
+                Assert.AreEqual(expectedResult[i].Name, actualResult[i].Name);           // Проверяем имя
+                Assert.AreEqual(expectedResult[i].Category, actualResult[i].Category);   // Проверяем категорию
+                Assert.AreEqual(expectedResult[i].Price, actualResult[i].Price);         // Проверяем цену
+                Assert.AreEqual(expectedResult[i].QuantitySold, actualResult[i].QuantitySold); // Проверяем количество проданного товара
+                Assert.AreEqual(expectedResult[i].Residue, actualResult[i].Residue);       // Проверяем остаток
+                Assert.AreEqual(expectedResult[i].LastSell, actualResult[i].LastSell);     // Проверяем дату последней продажи
+            }
+        }
+        public static IEnumerable<object[]> FindSeasonalProductsData()
+        {
+
+            // Один продукт, один месяц
+            yield return new object[] {
+                new BindingList<ProductInfo>() {
+                    new ProductInfo("Товар A", "Категория 1", 10.00m, 100, 50, new DateTime(2023, 1, 15))
                 },
-                new List<ProductInfo>
-                {
-                    new ProductInfo("Product2", "Category2", 200, 0, new DateTime(2023, 10, 5))
+                20m,
+                new BindingList<ProductInfo>() // Пустой список
+            };
+
+            // Один продукт, два месяца
+            yield return new object[] {
+                new BindingList<ProductInfo>() {
+                    new ProductInfo("Товар A", "Категория 1", 10.00m, 100, 50, new DateTime(2023, 1, 15)),
+                    new ProductInfo("Товар A", "Категория 1", 10.00m, 50, 50, new DateTime(2023, 2, 15))
+                },
+                50m,
+                new BindingList<ProductInfo>() {
+                    new ProductInfo("Товар A", "Категория 1", 10.00m, 100, 50, new DateTime(2023, 1, 15))
                 }
             };
 
-            // Тестовый кейс 2: Несколько продуктов с последней датой и нулевым остатком
-            yield return new object[]
-            {
-                new List<ProductInfo>
-                {
-                    new ProductInfo("Product1", "Category1", 200, 0, new DateTime(2023, 10, 5)),
-                    new ProductInfo("Product2", "Category2", 200, 0, new DateTime(2023, 10, 5)),
-                    new ProductInfo("Product3", "Category1", 300, 0, new DateTime(2023, 10, 5)),
-                    new ProductInfo("Product4", "Category3", 400, 2, new DateTime(2023, 08, 20))
+            //Два одинаковых продукта
+
+            yield return new object[] {
+                new BindingList<ProductInfo>() {
+                    new ProductInfo("Товар A", "Категория 1", 10.00m, 100, 50, new DateTime(2023, 1, 15)),
+                    new ProductInfo("Товар A", "Категория 1", 10.00m, 100, 50, new DateTime(2023, 2, 15))
                 },
-                new List<ProductInfo>
-                {
-                    new ProductInfo("Product1", "Category1", 100, 0, new DateTime(2023, 10, 5)),
-                    new ProductInfo("Product2", "Category2", 200, 0, new DateTime(2023, 10, 5)),
-                    new ProductInfo("Product3", "Category1", 300, 0, new DateTime(2023, 10, 5))
+                50m,
+                new BindingList<ProductInfo>() {}
+            };
+
+            // Два продукта, один сезонный, второй нет
+
+            yield return new object[] {
+                new BindingList<ProductInfo>() {
+                    new ProductInfo("Товар A", "Категория 1", 10.00m, 100, 50, new DateTime(2023, 1, 15)),
+                    new ProductInfo("Товар A", "Категория 1", 10.00m, 50, 50, new DateTime(2023, 2, 15)),
+                    new ProductInfo("Товар B", "Категория 2", 10.00m, 100, 50, new DateTime(2023, 1, 15)),
+                    new ProductInfo("Товар B", "Категория 2", 10.00m, 100, 50, new DateTime(2023, 2, 15))
+                },
+                50m,
+                new BindingList<ProductInfo>() {
+                    new ProductInfo("Товар A", "Категория 1", 10.00m, 100, 50, new DateTime(2023, 1, 15))
                 }
             };
 
-            // Тестовый кейс 3: Нет продуктов с последней датой и нулевым остатком (возвращается пустой список)
-            yield return new object[]
-            {
-                new List<ProductInfo>
-                {
-                    new ProductInfo ("Product1", "Category1", 100, 1, new DateTime(2023, 10, 1)),
-                    new ProductInfo("Product2", "Category2", 200, 1, new DateTime(2023, 09, 15)),
-                    new ProductInfo("Product3", "Category1", 300, 2, new DateTime(2023, 10, 5)),
-                    new ProductInfo("Product4", "Category3", 400, 0, new DateTime(2023, 08, 20))
+            //Продажа продукта в разных месяцах
+
+            yield return new object[] {
+                new BindingList<ProductInfo>() {
+                    new ProductInfo("Товар A", "Категория 1", 10.00m, 100, 50, new DateTime(2023, 1, 15)),
+                    new ProductInfo("Товар A", "Категория 1", 10.00m, 50, 50, new DateTime(2023, 1, 16)),
+                    new ProductInfo("Товар A", "Категория 1", 10.00m, 50, 50, new DateTime(2023, 2, 15)),
                 },
-                new List<ProductInfo>() // Ожидается пустой список
+                50m,
+                new BindingList<ProductInfo>() {
+                    new ProductInfo("Товар A", "Категория 1", 10.00m, 150, 50, new DateTime(2023, 1, 15))
+                }
+            };
+
+            //Два продукта сезонные
+
+            yield return new object[] {
+                new BindingList<ProductInfo>() {
+                    new ProductInfo("Test", "Test", 6.25m, 22, 18, new DateTime(2025, 03, 26)),
+                    new ProductInfo("Test", "Test", 6.25m, 8, 18, new DateTime(2025, 04, 26)),
+                    new ProductInfo("Test", "Test", 6.25m, 25, 18, new DateTime(2025, 05, 26)),
+                    new ProductInfo("Test2", "Test", 6.25m, 22, 18, new DateTime(2025, 03, 26)),
+                    new ProductInfo("Test2", "Test", 6.25m, 8, 18, new DateTime(2025, 04, 26)),
+                    new ProductInfo("Test2", "Test", 6.25m, 25, 18, new DateTime(2025, 05, 26)),
+                },
+                20m,
+                new BindingList<ProductInfo>() {
+                    new ProductInfo("Test", "Test", 6.25m, 25, 18, new DateTime(2025, 5, 26)),
+                    new ProductInfo("Test2", "Test", 6.25m, 25, 18, new DateTime(2025, 5, 26)),
+                }
             };
         }
-    }
+    } 
 }
+
+
+
