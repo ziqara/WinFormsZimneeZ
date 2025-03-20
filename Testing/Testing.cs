@@ -33,6 +33,49 @@ namespace Testing
                 Assert.AreEqual(expectedResult[i].LastSell, actualResult[i].LastSell);     // Проверяем дату последней продажи
             }
         }
+
+
+
+
+
+
+        public static IEnumerable<object[]> TestData()
+        {
+            // Первый набор данных
+            yield return new object[]
+            {
+            new List<ProductInfo>
+            {
+                new ProductInfo { Name = "ProductA", Category = "Category1", Price = 10, QuantitySold = 5, Residue = 2, LastSell = new DateTime(2023, 10, 1) },
+                new ProductInfo { Name = "ProductA", Category = "Category1", Price = 10, QuantitySold = 3, Residue = 1, LastSell = new DateTime(2023, 10, 5) },
+                new ProductInfo { Name = "ProductB", Category = "Category2", Price = 20, QuantitySold = 10, Residue = 5, LastSell = new DateTime(2023, 9, 15) },
+                new ProductInfo { Name = "ProductB", Category = "Category2", Price = 20, QuantitySold = 7, Residue = 3, LastSell = new DateTime(2023, 9, 20) },
+                new ProductInfo { Name = "ProductC", Category = "Category3", Price = 30, QuantitySold = 2, Residue = 1, LastSell = new DateTime(2023, 8, 10) }
+            },
+            new List<ProductInfo>
+            {
+                new ProductInfo("ProductB", "Category2", 20, 17, 3, new DateTime(2023, 9, 20)),
+                new ProductInfo("ProductA", "Category1", 10, 8, 1, new DateTime(2023, 10, 5)),
+                new ProductInfo("ProductC", "Category3", 30, 2, 1, new DateTime(2023, 8, 10))
+            }
+            };
+
+            // Второй набор данных
+            yield return new object[]
+            {
+            new List<ProductInfo>
+            {
+                new ProductInfo { Name = "ProductX", Category = "Category4", Price = 15, QuantitySold = 20, Residue = 10, LastSell = new DateTime(2023, 7, 1) },
+                new ProductInfo { Name = "ProductY", Category = "Category5", Price = 25, QuantitySold = 15, Residue = 5, LastSell = new DateTime(2023, 7, 5) },
+                new ProductInfo { Name = "ProductZ", Category = "Category6", Price = 35, QuantitySold = 5, Residue = 2, LastSell = new DateTime(2023, 7, 10) }
+            },
+            new List<ProductInfo>
+            {
+                new ProductInfo("ProductX", "Category4", 15, 20, 10, new DateTime(2023, 7, 1)),
+                new ProductInfo("ProductY", "Category5", 25, 15, 5, new DateTime(2023, 7, 5)),
+                new ProductInfo("ProductZ", "Category6", 35, 5, 2, new DateTime(2023, 7, 10))
+            }
+            };}
         public static IEnumerable<object[]> FindSeasonalProductsData()
         {
 
