@@ -14,7 +14,7 @@ namespace MyLib
 {
     public class LoadCsvSaveHtml
     {
-        public void LoadCsvData(string filePath, BindingList<ProductInfo> products)
+        public void LoadCsvData(string filePath, SalesHistory products)
         {
             try
             {

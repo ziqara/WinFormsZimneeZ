@@ -15,7 +15,7 @@ namespace Testing
             List<ProductInfo> expected)
         {
             // Act
-            var actual = SellProduct.GetProductsWithLastSaleResidueZero(products);
+            var actual = SalesHistory.GetProductsWithZeroResidueAndLatestSale(products);
 
             // Assert
             CollectionAssert.AreEquivalent(expected, actual);

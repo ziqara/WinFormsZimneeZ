@@ -14,23 +14,17 @@ namespace WinFormsZimneeZ
 {
     public partial class MainForn : Form
     {
-        private BindingList<ProductInfo> products;
+        private SalesHistory Histroy;
         private LoadCsvSaveHtml csvLoader;
+
         public MainForn()
         {
             InitializeComponent();
-            products = new BindingList<ProductInfo>();
+            Histroy = new SalesHistory();
             csvLoader = new LoadCsvSaveHtml();
-            FillWithTestData();
-            ProductTable.DataSource = products;
+            ProductTable.DataSource = Histroy.GetAllSales();       
         }
 
-        private void FillWithTestData()
-        {
-            products.Add(new ProductInfo("TestProduct1", "TestCategoryA", 10.00m, 5, DateTime.Now));
-            products.Add(new ProductInfo("TestProduct2", "TestCategoryB", 20.50m, 10, DateTime.Now.AddDays(-1)));
-            products.Add(new ProductInfo("TestProduct3", "TestCategoryA", 5.75m, 20, DateTime.Now.AddDays(-2)));
-        }
         private void LoadCsvButton_Click(object sender, EventArgs e)
         {
             OpenFileDialog openFileDialog = new OpenFileDialog();
@@ -42,7 +36,7 @@ namespace WinFormsZimneeZ
                 string filePath = openFileDialog.FileName;
                 try
                 {
-                    csvLoader.LoadCsvData(filePath, products);
+                    csvLoader.LoadCsvData(filePath, Histroy);
                 }
                 catch (Exception ex)
                 {
@@ -53,7 +47,9 @@ namespace WinFormsZimneeZ
 
         private void DefButton_Click(object sender, EventArgs e)
         {
+            BindingList<ProductInfo> Items = Histroy.GetProductsWithZeroResidueAndLatestSale();
 
+            ProductTable.DataSource = Items;
         }
     }
 }

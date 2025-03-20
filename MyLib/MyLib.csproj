@@ -44,7 +44,7 @@
   <ItemGroup>
     <Compile Include="LoadCsvSaveHtml.cs" />
     <Compile Include="ProductInfo.cs" />
-    <Compile Include="SellProduct.cs" />
+    <Compile Include="SalesHistory.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
