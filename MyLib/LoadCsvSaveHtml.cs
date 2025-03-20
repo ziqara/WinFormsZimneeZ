@@ -35,11 +35,12 @@ namespace MyLib
                                 string name = values[0];
                                 string category = values[1];
                                 decimal price = decimal.Parse(values[2], CultureInfo.InvariantCulture);
-                                int residue = int.Parse(values[3]);
-                                DateTime lastSell = DateTime.Parse(values[4]);
+                                int quantitysold = int.Parse(values[3]);
+                                int residue = int.Parse(values[4]);
+                                DateTime lastSell = DateTime.Parse(values[5]);
 
 
-                                ProductInfo product = new ProductInfo(name, category, price, residue, lastSell);
+                                ProductInfo product = new ProductInfo(name, category, price, quantitysold, residue, lastSell);
 
                                 products.AddSales(product);
 

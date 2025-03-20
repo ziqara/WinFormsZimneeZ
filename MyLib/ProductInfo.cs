@@ -13,14 +13,16 @@ namespace MyLib
         public string Name { get; set; }
         public string Category { get; set; }
         public decimal Price { get; set; }
+        public int QuantitySold { get; set; }
         public int Residue { get; set; }
         public DateTime LastSell { get; set; }
 
-        public ProductInfo(string name_, string category_, decimal price_, int residue_, DateTime lastsell_)
+        public ProductInfo(string name_, string category_, decimal price_, int quantitysold_, int residue_, DateTime lastsell_)
         {
             Name = name_;
             Category = category_;
             Price = price_;
+            QuantitySold = quantitysold_;
             Residue = residue_;
             LastSell = lastsell_;
         }

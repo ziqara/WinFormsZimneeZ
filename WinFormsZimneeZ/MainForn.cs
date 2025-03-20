@@ -22,6 +22,7 @@ namespace WinFormsZimneeZ
             InitializeComponent();
             Histroy = new SalesHistory();
             csvLoader = new LoadCsvSaveHtml();
+            Histroy.AddAllSales();
             ProductTable.DataSource = Histroy.GetAllSales();       
         }
 
@@ -49,6 +50,13 @@ namespace WinFormsZimneeZ
         {
             BindingList<ProductInfo> Items = Histroy.GetProductsWithZeroResidueAndLatestSale();
 
+            ProductTable.DataSource = Items;
+        }
+
+        private void TopButton_Click(object sender, EventArgs e)
+        {
+
+            BindingList<ProductInfo> Items = Histroy.ShowBestSellingProducts();
             ProductTable.DataSource = Items;
         }
     }

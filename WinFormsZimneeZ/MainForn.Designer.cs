@@ -44,7 +44,7 @@
             this.ProductTable.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.ProductTable.Location = new System.Drawing.Point(316, 38);
             this.ProductTable.Name = "ProductTable";
-            this.ProductTable.Size = new System.Drawing.Size(472, 358);
+            this.ProductTable.Size = new System.Drawing.Size(782, 358);
             this.ProductTable.TabIndex = 0;
             // 
             // DefButton
@@ -65,6 +65,7 @@
             this.TopButton.TabIndex = 2;
             this.TopButton.Text = "Самые продаваемые";
             this.TopButton.UseVisualStyleBackColor = true;
+            this.TopButton.Click += new System.EventHandler(this.TopButton_Click);
             // 
             // SeasonButton
             // 
@@ -111,7 +112,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(800, 450);
+            this.ClientSize = new System.Drawing.Size(1149, 450);
             this.Controls.Add(this.SaveHtmlButton);
             this.Controls.Add(this.LoadCsvButton);
             this.Controls.Add(this.TrendButton);
