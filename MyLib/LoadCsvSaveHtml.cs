@@ -41,7 +41,7 @@ namespace MyLib
 
                                 ProductInfo product = new ProductInfo(name, category, price, residue, lastSell);
 
-                                products.Add(product);
+                                products.AddSales(product);
 
 
                             }

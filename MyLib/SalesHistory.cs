@@ -25,9 +25,9 @@ namespace MyLib
              return AllSales_.ToList();
         } 
 
-        public void AddSales()
+        public void AddSales(ProductInfo newProduct)
         {
-
+            AllSales_.Add(newProduct);
         }
 
 
