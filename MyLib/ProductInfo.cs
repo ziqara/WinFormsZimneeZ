@@ -10,6 +10,7 @@ namespace MyLib
      public class ProductInfo
     {
 
+
         public string Name { get; set; }
         public string Category { get; set; }
         public decimal Price { get; set; }
@@ -17,15 +18,19 @@ namespace MyLib
         public int Residue { get; set; }
         public DateTime LastSell { get; set; }
 
-        public ProductInfo(string name_, string category_, decimal price_, int quantitysold_, int residue_, DateTime lastsell_)
+
+        public ProductInfo() { }
+
+        public ProductInfo(string name_, string category_, decimal price_, int quantitySold_, int residue_, DateTime lastSell_)
         {
             Name = name_;
             Category = category_;
             Price = price_;
-            QuantitySold = quantitysold_;
+            QuantitySold = quantitySold_;
             Residue = residue_;
-            LastSell = lastsell_;
+            LastSell = lastSell_;
         }
+
         public string GetName() { return Name; }
         public string GetCategory() { return Category; }
         public decimal GetPrice() { return Price; }

@@ -14,7 +14,7 @@ namespace MyLib
         List<ProductInfo> AllSales_ = new List<ProductInfo>();
         public void AddAllSales()
         {
-            AllSales_.Add(new ProductInfo("Смартфон Galaxy S23", "Электроника", 10.00m, 25, 0, new DateTime(2025, 06, 20)));
+            AllSales_.Add(new ProductInfo("Смартфон Galaxy S23", "Электроника", 10.00m, 65, 0, new DateTime(2025, 06, 20)));
             AllSales_.Add(new ProductInfo("Ноутбук Dell XPS 15", "Электроника", 20.50m, 10, 10, new DateTime(2025, 03, 20)));
             AllSales_.Add(new ProductInfo("Футболка мужская хлопок", "Одежда", 5.75m, 20, 0, new DateTime(2025, 03, 22)));
             AllSales_.Add(new ProductInfo("Футболка мужская хлопок", "Одежда", 5.75m, 20, 15, new DateTime(2025, 03, 20)));
@@ -86,8 +86,23 @@ namespace MyLib
             {
                 return new BindingList<ProductInfo>();
             }
-            DateTime maxDate = AllSales_.Max(p => p.LastSell);
-            return new BindingList<ProductInfo>(AllSales_.Where(p => p.LastSell == maxDate && p.Residue == 0).ToList());
+
+            // Группируем продукты по имени и категории
+            var groupedProducts = AllSales_
+                .GroupBy(p => new { p.Name, p.Category })
+                .Where(g => g.Any(p => p.Residue == 0)) // Фильтруем группы, где есть хотя бы один продукт с Residue == 0
+                .Select(g => new ProductInfo
+                {
+                    Name = g.Key.Name,
+                    Category = g.Key.Category,
+                    Price = g.First().Price, // Берем цену из первого элемента группы
+                    QuantitySold = g.Sum(p => p.QuantitySold), // Суммируем QuantitySold для всех элементов группы
+                    Residue = 0, // Указываем Residue = 0, так как группа содержит хотя бы один продукт с Residue == 0
+                    LastSell = g.Max(p => p.LastSell) // Находим максимальную дату продажи в группе
+                })
+                .ToList();
+
+            return new BindingList<ProductInfo>(groupedProducts);
         }
     }
 }
