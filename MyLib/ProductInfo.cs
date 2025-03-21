@@ -9,11 +9,17 @@ namespace MyLib
 {
      public class ProductInfo
      {
+        [DisplayName("Наименование")]
         public string Name { get; set; }
+        [DisplayName("Категория")]
         public string Category { get; set; }
+        [DisplayName("Цена")]
         public decimal Price { get; set; }
+        [DisplayName("Количество проданного")]
         public int QuantitySold { get; set; }
+        [DisplayName("Остаток")]
         public int Residue { get; set; }
+        [DisplayName("Дата последней продажи")]
         public DateTime LastSell { get; set; }
 
 
