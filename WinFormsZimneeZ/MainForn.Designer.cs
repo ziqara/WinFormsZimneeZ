@@ -38,6 +38,7 @@
             this.openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
             this.SeasonBox = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
+            this.ReturnButton = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.ProductTable)).BeginInit();
             this.SuspendLayout();
             // 
@@ -127,11 +128,22 @@
             this.label1.TabIndex = 8;
             this.label1.Text = "Введите процент продаж";
             // 
+            // ReturnButton
+            // 
+            this.ReturnButton.Location = new System.Drawing.Point(668, 402);
+            this.ReturnButton.Name = "ReturnButton";
+            this.ReturnButton.Size = new System.Drawing.Size(75, 23);
+            this.ReturnButton.TabIndex = 9;
+            this.ReturnButton.Text = "Сброс";
+            this.ReturnButton.UseVisualStyleBackColor = true;
+            this.ReturnButton.Click += new System.EventHandler(this.ReturnButton_Click);
+            // 
             // MainForn
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1149, 450);
+            this.Controls.Add(this.ReturnButton);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.SeasonBox);
             this.Controls.Add(this.SaveHtmlButton);
@@ -161,6 +173,7 @@
         private System.Windows.Forms.OpenFileDialog openFileDialog1;
         private System.Windows.Forms.TextBox SeasonBox;
         private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Button ReturnButton;
     }
 }
 

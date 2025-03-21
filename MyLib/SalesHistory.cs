@@ -73,6 +73,8 @@ namespace MyLib
             AllSales_.Add(newProduct);
         }
 
+        
+
         public BindingList<ProductInfo> ShowBestSellingProducts()
         {
             var topProducts = AllSales_

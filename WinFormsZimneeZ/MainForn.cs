@@ -67,15 +67,16 @@ namespace WinFormsZimneeZ
                 MessageBox.Show("Пожалуйста, введите корректное числовое значение для процента.");
                 return;
             }
-
-            // Получаем BindingList из History
-            BindingList<ProductInfo> allProducts = History.GetAllSales();
-
             // Получаем список сезонных товаров
-            BindingList<ProductInfo> seasonalProducts = History.FindSeasonalProducts(allProducts, percentageThreshold); // Вызываем метод через объект History
+            BindingList<ProductInfo> Items = History.FindSeasonalProducts(History.GetAllSales(), percentageThreshold);
 
             // Обновляем DataGridView
-            ProductTable.DataSource = seasonalProducts;
+            ProductTable.DataSource = Items;
+        }
+
+        private void ReturnButton_Click(object sender, EventArgs e)
+        {
+            ProductTable.DataSource = History.GetAllSales();
         }
     }
 }
