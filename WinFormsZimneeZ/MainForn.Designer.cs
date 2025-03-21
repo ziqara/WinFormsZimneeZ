@@ -47,6 +47,8 @@
             this.ProductTable.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.ProductTable.Location = new System.Drawing.Point(316, 38);
             this.ProductTable.Name = "ProductTable";
+            this.ProductTable.ReadOnly = true;
+            this.ProductTable.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.ProductTable.Size = new System.Drawing.Size(782, 358);
             this.ProductTable.TabIndex = 0;
             // 

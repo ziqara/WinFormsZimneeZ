@@ -67,6 +67,11 @@ namespace WinFormsZimneeZ
                 MessageBox.Show("Пожалуйста, введите корректное числовое значение для процента.");
                 return;
             }
+            if (Convert.ToDecimal(SeasonBox.Text) < 0)
+            {
+                MessageBox.Show("Пожалуйста, введите корректное числовое значение для процента.");
+                return;
+            }
             // Получаем список сезонных товаров
             BindingList<ProductInfo> Items = History.FindSeasonalProducts(History.GetAllSales(), percentageThreshold);
 
