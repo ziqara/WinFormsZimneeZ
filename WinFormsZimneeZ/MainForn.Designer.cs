@@ -39,6 +39,8 @@
             this.SeasonBox = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
             this.ReturnButton = new System.Windows.Forms.Button();
+            this.label2 = new System.Windows.Forms.Label();
+            this.trendingWeeksTextBox = new System.Windows.Forms.TextBox();
             ((System.ComponentModel.ISupportInitialize)(this.ProductTable)).BeginInit();
             this.SuspendLayout();
             // 
@@ -90,6 +92,7 @@
             this.TrendButton.TabIndex = 4;
             this.TrendButton.Text = "Трендовые товары";
             this.TrendButton.UseVisualStyleBackColor = true;
+            this.TrendButton.Click += new System.EventHandler(this.TrendButton_Click);
             // 
             // LoadCsvButton
             // 
@@ -140,11 +143,29 @@
             this.ReturnButton.UseVisualStyleBackColor = true;
             this.ReturnButton.Click += new System.EventHandler(this.ReturnButton_Click);
             // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Location = new System.Drawing.Point(37, 331);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(149, 13);
+            this.label2.TabIndex = 10;
+            this.label2.Text = "Введите количество недель";
+            // 
+            // trendingWeeksTextBox
+            // 
+            this.trendingWeeksTextBox.Location = new System.Drawing.Point(40, 347);
+            this.trendingWeeksTextBox.Name = "trendingWeeksTextBox";
+            this.trendingWeeksTextBox.Size = new System.Drawing.Size(245, 20);
+            this.trendingWeeksTextBox.TabIndex = 11;
+            // 
             // MainForn
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1149, 450);
+            this.Controls.Add(this.trendingWeeksTextBox);
+            this.Controls.Add(this.label2);
             this.Controls.Add(this.ReturnButton);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.SeasonBox);
@@ -176,6 +197,8 @@
         private System.Windows.Forms.TextBox SeasonBox;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Button ReturnButton;
+        private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.TextBox trendingWeeksTextBox;
     }
 }
 

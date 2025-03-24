@@ -15,6 +15,12 @@ namespace MyLib
         List<ProductInfo> AllSales_ = new List<ProductInfo>();
         public void AddAllSales()
         {
+            AllSales_.Add(new ProductInfo("321 '321'", "Продукты", 3.50m, 10, 18, new DateTime(2025, 03, 10)));
+            AllSales_.Add(new ProductInfo("321 '321'", "Продукты", 3.50m, 30, 18, new DateTime(2025, 03, 24)));
+
+            AllSales_.Add(new ProductInfo("123 '123'", "Продукты", 3.50m, 10, 18, new DateTime(2025, 03, 3)));
+            AllSales_.Add(new ProductInfo("123 '123'", "Продукты", 3.50m, 30, 18, new DateTime(2025, 03, 24)));
+
             AllSales_.Add(new ProductInfo("Смартфон Galaxy S23", "Электроника", 10.00m, 65, 0, new DateTime(2025, 06, 20))); // Июнь
             AllSales_.Add(new ProductInfo("Смартфон Galaxy S23", "Электроника", 10.00m, 35, 0, new DateTime(2025, 07, 20))); // Июль
 
@@ -194,6 +200,63 @@ namespace MyLib
             resultList = new BindingList<ProductInfo>(distinctProducts);
             return resultList;
         }
+
+        public BindingList<ProductInfo> FindTrendingProducts(BindingList<ProductInfo> data, int trendingWeeks)
+        {
+            BindingList<ProductInfo> trendingProducts = new BindingList<ProductInfo>();
+            DateTime today = DateTime.Today;
+
+            // Определяем дату начала периода анализа
+            DateTime startDate = today.AddDays(-(trendingWeeks * 7));
+            int daysToSubtract = trendingWeeks * 7; // Сделаем число положительным
+            startDate = today.AddDays(-daysToSubtract);
+
+            // Определяем дату начала предыдущего периода
+            DateTime previousEndDate = startDate.AddDays(-1);
+            previousEndDate = previousEndDate.Date;
+
+            DateTime previousStartDate = previousEndDate.AddDays(-(trendingWeeks * 7) + 1);
+            previousStartDate = previousStartDate.Date;
+
+            // Группируем продажи по названию продукта
+            var groupedProducts = data.GroupBy(p => p.Name);
+
+            foreach (var productGroup in groupedProducts)
+            {
+                string productName = productGroup.Key;
+
+                // Вычисляем общую сумму продаж за последние trendingWeeks недель
+                int currentPeriodSales = productGroup
+                    .Where(p => p.LastSell.Date > startDate.AddDays(-1))
+                    .Sum(p => p.QuantitySold);
+
+                // Вычисляем общую сумму продаж за предыдущие trendingWeeks недель
+                int previousPeriodSales = productGroup
+                    .Where(p => p.LastSell.Date >= previousStartDate && p.LastSell.Date <= previousEndDate)
+                    .Sum(p => p.QuantitySold);
+
+                // Проверяем, были ли продажи за предыдущий период
+                if (previousPeriodSales > 0)
+                {
+                    //Проверяем, во сколько раз выросли продажи (должно быть 2 или больше)
+                    decimal salesIncreaseFactor = (decimal)currentPeriodSales / previousPeriodSales;
+
+                    //Если продажи выросли в 2 и более раз, добавляем продукт
+                    if (salesIncreaseFactor >= 2)
+                    {
+                        // Берем самую последнюю продажу товара
+                        ProductInfo latestProduct = productGroup.OrderByDescending(p => p.LastSell).FirstOrDefault();
+                        if (latestProduct != null)
+                        {
+                            trendingProducts.Add(latestProduct);
+                        }
+                    }
+                }
+            }
+
+            return trendingProducts;
+        }
+
     }
     
 }

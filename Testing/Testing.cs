@@ -11,13 +11,11 @@ namespace Testing
     {
         [TestMethod]
         [DynamicData(nameof(FindSeasonalProductsData), DynamicDataSourceType.Method)]
-        public void FindSeasonalProducts_DynamicData(BindingList<ProductInfo> inputData, decimal percentageThreshold, BindingList<ProductInfo> expectedResult)
+        public void TESTFindSeasonalProductsTEST(BindingList<ProductInfo> inputData, decimal percentageThreshold, BindingList<ProductInfo> expectedResult)
         {
             SalesHistory history = new SalesHistory();
 
             BindingList<ProductInfo> actualResult = history.FindSeasonalProducts(inputData, percentageThreshold);
-
-
 
             // Проверяем, что количество элементов в ожидаемом и фактическом результатах совпадает
             Assert.AreEqual(expectedResult.Count, actualResult.Count);
@@ -33,49 +31,35 @@ namespace Testing
                 Assert.AreEqual(expectedResult[i].LastSell, actualResult[i].LastSell);     // Проверяем дату последней продажи
             }
         }
-
-
-
-
-
-
-        public static IEnumerable<object[]> TestData()
+        [TestMethod]
+        [DynamicData(nameof(FindTrendingProductsData), DynamicDataSourceType.Method)]
+        public void FindTrendingProducts_DynamicData(BindingList<ProductInfo> data, int trendingWeeks, BindingList<ProductInfo> expected)
         {
-            // Первый набор данных
-            yield return new object[]
-            {
-            new List<ProductInfo>
-            {
-                new ProductInfo { Name = "ProductA", Category = "Category1", Price = 10, QuantitySold = 5, Residue = 2, LastSell = new DateTime(2023, 10, 1) },
-                new ProductInfo { Name = "ProductA", Category = "Category1", Price = 10, QuantitySold = 3, Residue = 1, LastSell = new DateTime(2023, 10, 5) },
-                new ProductInfo { Name = "ProductB", Category = "Category2", Price = 20, QuantitySold = 10, Residue = 5, LastSell = new DateTime(2023, 9, 15) },
-                new ProductInfo { Name = "ProductB", Category = "Category2", Price = 20, QuantitySold = 7, Residue = 3, LastSell = new DateTime(2023, 9, 20) },
-                new ProductInfo { Name = "ProductC", Category = "Category3", Price = 30, QuantitySold = 2, Residue = 1, LastSell = new DateTime(2023, 8, 10) }
-            },
-            new List<ProductInfo>
-            {
-                new ProductInfo("ProductB", "Category2", 20, 17, 3, new DateTime(2023, 9, 20)),
-                new ProductInfo("ProductA", "Category1", 10, 8, 1, new DateTime(2023, 10, 5)),
-                new ProductInfo("ProductC", "Category3", 30, 2, 1, new DateTime(2023, 8, 10))
-            }
-            };
+            
+            SalesHistory history = new SalesHistory();
+            
+            BindingList<ProductInfo> actual = history.FindTrendingProducts(data, trendingWeeks);
 
-            // Второй набор данных
-            yield return new object[]
+            Assert.AreEqual(expected.Count, actual.Count);
+
+            for (int i = 0; i < expected.Count; i++)
             {
-            new List<ProductInfo>
-            {
-                new ProductInfo { Name = "ProductX", Category = "Category4", Price = 15, QuantitySold = 20, Residue = 10, LastSell = new DateTime(2023, 7, 1) },
-                new ProductInfo { Name = "ProductY", Category = "Category5", Price = 25, QuantitySold = 15, Residue = 5, LastSell = new DateTime(2023, 7, 5) },
-                new ProductInfo { Name = "ProductZ", Category = "Category6", Price = 35, QuantitySold = 5, Residue = 2, LastSell = new DateTime(2023, 7, 10) }
-            },
-            new List<ProductInfo>
-            {
-                new ProductInfo("ProductX", "Category4", 15, 20, 10, new DateTime(2023, 7, 1)),
-                new ProductInfo("ProductY", "Category5", 25, 15, 5, new DateTime(2023, 7, 5)),
-                new ProductInfo("ProductZ", "Category6", 35, 5, 2, new DateTime(2023, 7, 10))
+                Assert.AreEqual(expected[i].Name, actual[i].Name);
+                Assert.AreEqual(expected[i].Category, actual[i].Category);
+                Assert.AreEqual(expected[i].Price, actual[i].Price);
+                Assert.AreEqual(expected[i].QuantitySold, actual[i].QuantitySold);
+                Assert.AreEqual(expected[i].Residue, actual[i].Residue);
+                Assert.AreEqual(expected[i].LastSell.Date, actual[i].LastSell.Date);
             }
-            };}
+        }
+
+
+
+
+
+
+
+
         public static IEnumerable<object[]> FindSeasonalProductsData()
         {
 
@@ -101,7 +85,6 @@ namespace Testing
             };
 
             //Два одинаковых продукта
-
             yield return new object[] {
                 new BindingList<ProductInfo>() {
                     new ProductInfo("Товар A", "Категория 1", 10.00m, 100, 50, new DateTime(2023, 1, 15)),
@@ -112,7 +95,6 @@ namespace Testing
             };
 
             // Два продукта, один сезонный, второй нет
-
             yield return new object[] {
                 new BindingList<ProductInfo>() {
                     new ProductInfo("Товар A", "Категория 1", 10.00m, 100, 50, new DateTime(2023, 1, 15)),
@@ -127,7 +109,6 @@ namespace Testing
             };
 
             //Продажа продукта в разных месяцах
-
             yield return new object[] {
                 new BindingList<ProductInfo>() {
                     new ProductInfo("Товар A", "Категория 1", 10.00m, 100, 50, new DateTime(2023, 1, 15)),
@@ -141,7 +122,6 @@ namespace Testing
             };
 
             //Два продукта сезонные
-
             yield return new object[] {
                 new BindingList<ProductInfo>() {
                     new ProductInfo("Test", "Test", 6.25m, 22, 18, new DateTime(2025, 03, 26)),
@@ -158,8 +138,109 @@ namespace Testing
                 }
             };
         }
-    } 
-}
+
+        public static IEnumerable<object[]> FindTrendingProductsData()
+        {
+            DateTime today = DateTime.Today;
+
+            //Нет данных, должен вернуть пустой список
+            yield return new object[]
+            {
+                new BindingList<ProductInfo>(), // данные
+                2,                             // trendingWeeks (недели для тренда)
+                new BindingList<ProductInfo>()  // ожидаемый результат
+            };
+
+            //Трендовый товар за 2 недели
+            yield return new object[]
+            {
+                new BindingList<ProductInfo>()
+                {
+                    new ProductInfo("Product A", "Category", 10, 10, 0, today.AddDays(-16)),
+                    new ProductInfo("Product A", "Category", 10, 30, 0, today.AddDays(-2)),
+                },
+                2,
+                new BindingList<ProductInfo>()
+                {
+                new ProductInfo("Product A", "Category", 10, 30, 0, today.AddDays(-2))
+                }
+            };
+
+            //Не трендовый, нет роста продаж
+            yield return new object[]
+            {
+                new BindingList<ProductInfo>()
+                {
+                    new ProductInfo("Product A", "Category", 10, 10, 0, today.AddDays(-16)),
+                    new ProductInfo("Product A", "Category", 10, 12, 0, today.AddDays(-2)),
+                },
+                2,
+                new BindingList<ProductInfo>()
+            };
+
+            //Был трендовым, но перестал быть
+            yield return new object[]
+            {
+                new BindingList<ProductInfo>()
+                {
+                    new ProductInfo("Product A", "Category", 10, 30, 0, today.AddDays(-16)),
+                    new ProductInfo("Product A", "Category", 10, 10, 0, today.AddDays(-2)),
+                },
+                2,
+                new BindingList<ProductInfo>()
+            };
+
+            //Два товара, один трендовый, другой нет
+            yield return new object[]
+            {
+                new BindingList<ProductInfo>()
+                {
+                    new ProductInfo("Product A", "Category", 10, 10, 0, today.AddDays(-16)),
+                    new ProductInfo("Product A", "Category", 10, 30, 0, today.AddDays(-2)),
+                    new ProductInfo("Product B", "Category", 10, 10, 0, today.AddDays(-16)),
+                    new ProductInfo("Product B", "Category", 10, 12, 0, today.AddDays(-2)),
+                },
+                2,
+                new BindingList<ProductInfo>()
+                {
+                    new ProductInfo("Product A", "Category", 10, 30, 0, today.AddDays(-2))
+                }
+            };
+
+            //Ровно двукратный рост продаж
+            yield return new object[]
+            {
+                new BindingList<ProductInfo>()
+                {
+                    new ProductInfo("Product A", "Category", 10, 10, 0, today.AddDays(-16)), 
+                    new ProductInfo("Product A", "Category", 10, 20, 0, today.AddDays(-2)), 
+                },
+                2,
+                new BindingList<ProductInfo>()
+                {
+                    new ProductInfo("Product A", "Category", 10, 20, 0, today.AddDays(-2))
+                }
+            };
+
+            //Проверка что выбирается последняя версия товара
+            yield return new object[]
+            {
+                new BindingList<ProductInfo>()
+                {
+                    new ProductInfo("Product A", "Category", 10, 10, 0, today.AddDays(-16)),
+                    new ProductInfo("Product A", "Category", 10, 20, 0, today.AddDays(-2)),
+                    new ProductInfo("Product A", "Category", 10, 5, 0, today.AddDays(-6)), 
+                },
+                2,
+                new BindingList<ProductInfo>()
+                {
+                    new ProductInfo("Product A", "Category", 10, 20, 0, today.AddDays(-2))
+                }
+            };
+        }
+
+    }
+ }
 
 
 

@@ -49,13 +49,11 @@ namespace WinFormsZimneeZ
         private void DefButton_Click(object sender, EventArgs e)
         {
             BindingList<ProductInfo> Items = History.GetProductsWithZeroResidueAndLatestSale();
-
             ProductTable.DataSource = Items;
         }
 
         private void TopButton_Click(object sender, EventArgs e)
         {
-
             BindingList<ProductInfo> Items = History.ShowBestSellingProducts();
             ProductTable.DataSource = Items;
         }
@@ -75,14 +73,31 @@ namespace WinFormsZimneeZ
             // Получаем список сезонных товаров
             BindingList<ProductInfo> Items = History.FindSeasonalProducts(History.GetAllSales(), percentageThreshold);
 
-            // Обновляем DataGridView
             ProductTable.DataSource = Items;
         }
 
+        private void TrendButton_Click(object sender, EventArgs e)
+        {
+            if (!int.TryParse(trendingWeeksTextBox.Text, out int trendingWeeks))
+            {
+                MessageBox.Show("Пожалуйста, введите корректное числовое значение для количества недель.");
+                return;
+            }
+            if (Convert.ToDecimal(trendingWeeksTextBox.Text) < 0)
+            {
+                MessageBox.Show("Пожалуйста, введите корректное числовое значение для процента.");
+                return;
+            }
+            // Находим трендовые товары
+            BindingList<ProductInfo> Items = History.FindTrendingProducts(History.GetAllSales(), trendingWeeks);
+
+            ProductTable.DataSource = Items;
+        }
         private void ReturnButton_Click(object sender, EventArgs e)
         {
             ProductTable.DataSource = History.GetAllSales();
         }
+
     }
 }
 
