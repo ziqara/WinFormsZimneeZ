@@ -112,6 +112,7 @@
             this.SaveHtmlButton.TabIndex = 6;
             this.SaveHtmlButton.Text = "Сохранить";
             this.SaveHtmlButton.UseVisualStyleBackColor = true;
+            this.SaveHtmlButton.Click += new System.EventHandler(this.SaveHtmlButton_Click);
             // 
             // openFileDialog1
             // 

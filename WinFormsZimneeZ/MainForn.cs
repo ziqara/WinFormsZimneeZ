@@ -85,7 +85,7 @@ namespace WinFormsZimneeZ
             }
             if (Convert.ToDecimal(trendingWeeksTextBox.Text) < 0)
             {
-                MessageBox.Show("Пожалуйста, введите корректное числовое значение для процента.");
+                MessageBox.Show("Пожалуйста, введите корректное числовое значение для количества недель..");
                 return;
             }
             // Находим трендовые товары
@@ -98,6 +98,18 @@ namespace WinFormsZimneeZ
             ProductTable.DataSource = History.GetAllSales();
         }
 
+        private void SaveHtmlButton_Click(object sender, EventArgs e)
+        {
+            SaveFileDialog saveFileDialog = new SaveFileDialog();
+            saveFileDialog.Filter = "HTML files (*.html)|*.html|All files (*.*)|*.*";
+            saveFileDialog.Title = "Save DataGridView as HTML";
+            if (saveFileDialog.ShowDialog() == DialogResult.OK)
+            {
+                string filePath = saveFileDialog.FileName;
+                LoadCsvSaveHtml.SaveDataGridViewToHtml(ProductTable, filePath);
+                MessageBox.Show("Данные успешно сохранены!", "Сохранение завершено", MessageBoxButtons.OK);
+            }
+        }
     }
 }
 

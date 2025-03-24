@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Linq;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using MyLib;
 
@@ -9,6 +10,7 @@ namespace Testing
     [TestClass]
     public class TSellProduct
     {
+        
         [TestMethod]
         [DynamicData(nameof(FindSeasonalProductsData), DynamicDataSourceType.Method)]
         public void TESTFindSeasonalProductsTEST(BindingList<ProductInfo> inputData, decimal percentageThreshold, BindingList<ProductInfo> expectedResult)
@@ -33,11 +35,11 @@ namespace Testing
         }
         [TestMethod]
         [DynamicData(nameof(FindTrendingProductsData), DynamicDataSourceType.Method)]
-        public void FindTrendingProducts_DynamicData(BindingList<ProductInfo> data, int trendingWeeks, BindingList<ProductInfo> expected)
+        public void TESTFindTrendingProductsTEST(BindingList<ProductInfo> data, int trendingWeeks, BindingList<ProductInfo> expected)
         {
-            
+
             SalesHistory history = new SalesHistory();
-            
+
             BindingList<ProductInfo> actual = history.FindTrendingProducts(data, trendingWeeks);
 
             Assert.AreEqual(expected.Count, actual.Count);
@@ -212,8 +214,8 @@ namespace Testing
             {
                 new BindingList<ProductInfo>()
                 {
-                    new ProductInfo("Product A", "Category", 10, 10, 0, today.AddDays(-16)), 
-                    new ProductInfo("Product A", "Category", 10, 20, 0, today.AddDays(-2)), 
+                    new ProductInfo("Product A", "Category", 10, 10, 0, today.AddDays(-16)),
+                    new ProductInfo("Product A", "Category", 10, 20, 0, today.AddDays(-2)),
                 },
                 2,
                 new BindingList<ProductInfo>()
@@ -229,7 +231,7 @@ namespace Testing
                 {
                     new ProductInfo("Product A", "Category", 10, 10, 0, today.AddDays(-16)),
                     new ProductInfo("Product A", "Category", 10, 20, 0, today.AddDays(-2)),
-                    new ProductInfo("Product A", "Category", 10, 5, 0, today.AddDays(-6)), 
+                    new ProductInfo("Product A", "Category", 10, 5, 0, today.AddDays(-6)),
                 },
                 2,
                 new BindingList<ProductInfo>()
@@ -238,9 +240,8 @@ namespace Testing
                 }
             };
         }
-
     }
- }
+}
 
 
 
