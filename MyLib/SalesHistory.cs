@@ -12,7 +12,7 @@ namespace MyLib
 {
     public class SalesHistory
     {
-        List<ProductInfo> AllSales_ = new List<ProductInfo>();
+        BindingList<ProductInfo> AllSales_ = new BindingList<ProductInfo>();
         public void AddAllSales()
         {
             AllSales_.Add(new ProductInfo("321 '321'", "Продукты", 3.50m, 10, 18, new DateTime(2025, 03, 10)));
@@ -71,7 +71,7 @@ namespace MyLib
 
         public BindingList<ProductInfo> GetAllSales()
         {
-            return new BindingList<ProductInfo>(AllSales_.ToList());
+            return AllSales_;
         }
 
         public void AddSales(ProductInfo newProduct)

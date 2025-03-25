@@ -28,6 +28,8 @@ namespace WinFormsZimneeZ
 
         private void LoadCsvButton_Click(object sender, EventArgs e)
         {
+            
+
             OpenFileDialog openFileDialog = new OpenFileDialog();
             openFileDialog.Filter = "CSV Files (*.csv)|*.csv|All Files (*.*)|*.*";
             openFileDialog.Title = "Select a CSV File";
@@ -109,6 +111,18 @@ namespace WinFormsZimneeZ
                 LoadCsvSaveHtml.SaveDataGridViewToHtml(ProductTable, filePath);
                 MessageBox.Show("Данные успешно сохранены!", "Сохранение завершено", MessageBoxButtons.OK);
             }
+        }
+
+        private void defStripButton_Click(object sender, EventArgs e)
+        {
+            BindingList<ProductInfo> Items = History.GetProductsWithZeroResidueAndLatestSale();
+            ProductTable.DataSource = Items;
+        }
+
+        private void toolStripButton2_Click(object sender, EventArgs e)
+        {
+            BindingList<ProductInfo> Items = History.ShowBestSellingProducts();
+            ProductTable.DataSource = Items;
         }
     }
 }

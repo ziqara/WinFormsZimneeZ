@@ -27,7 +27,7 @@ namespace MyLib
                         string line = reader.ReadLine();
                         string[] values = line.Split(',');
 
-                        if (values.Length == 5)
+                        if (values.Length == 6)
                         {
                             try
                             {
