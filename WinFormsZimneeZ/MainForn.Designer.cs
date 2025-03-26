@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForn));
             this.ProductTable = new System.Windows.Forms.DataGridView();
             this.DefButton = new System.Windows.Forms.Button();
@@ -50,6 +51,8 @@
             this.Menu = new System.Windows.Forms.ToolStrip();
             this.toolStripButton1 = new System.Windows.Forms.ToolStripButton();
             this.toolStripButton2 = new System.Windows.Forms.ToolStripButton();
+            this.Reload = new System.Windows.Forms.Button();
+            this.reloaded = new System.Windows.Forms.ToolTip(this.components);
             ((System.ComponentModel.ISupportInitialize)(this.ProductTable)).BeginInit();
             this.panel1.SuspendLayout();
             this.menuStrip1.SuspendLayout();
@@ -259,11 +262,22 @@
             this.toolStripButton2.ToolTipText = "Показать 10 самых продаваемых товаров";
             this.toolStripButton2.Click += new System.EventHandler(this.toolStripButton2_Click);
             // 
+            // Reload
+            // 
+            this.Reload.Image = ((System.Drawing.Image)(resources.GetObject("Reload.Image")));
+            this.Reload.Location = new System.Drawing.Point(711, 377);
+            this.Reload.Name = "Reload";
+            this.Reload.Size = new System.Drawing.Size(24, 24);
+            this.Reload.TabIndex = 15;
+            this.Reload.UseVisualStyleBackColor = true;
+            this.Reload.Click += new System.EventHandler(this.Reload_Click);
+            // 
             // MainForn
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1149, 421);
+            this.Controls.Add(this.Reload);
             this.Controls.Add(this.Menu);
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.trendingWeeksTextBox);
@@ -314,6 +328,8 @@
         private System.Windows.Forms.ToolStrip Menu;
         private System.Windows.Forms.ToolStripButton toolStripButton1;
         private System.Windows.Forms.ToolStripButton toolStripButton2;
+        private System.Windows.Forms.Button Reload;
+        private System.Windows.Forms.ToolTip reloaded;
     }
 }
 

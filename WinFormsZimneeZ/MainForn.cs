@@ -9,6 +9,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 
 namespace WinFormsZimneeZ
 {
@@ -23,7 +24,9 @@ namespace WinFormsZimneeZ
             History = new SalesHistory();
             csvLoader = new LoadCsvSaveHtml();
             History.AddAllSales();
-            ProductTable.DataSource = History.GetAllSales();       
+            ProductTable.DataSource = History.GetAllSales();
+
+            reloaded.SetToolTip(Reload, "Сбросить");
         }
 
         private void LoadCsvButton_Click(object sender, EventArgs e)
@@ -123,6 +126,12 @@ namespace WinFormsZimneeZ
         {
             BindingList<ProductInfo> Items = History.ShowBestSellingProducts();
             ProductTable.DataSource = Items;
+        }
+
+        private void Reload_Click(object sender, EventArgs e)
+        {
+            this.ActiveControl = null;
+            ProductTable.DataSource = History.GetAllSales();
         }
     }
 }
