@@ -44,18 +44,18 @@
             this.label2 = new System.Windows.Forms.Label();
             this.trendingWeeksTextBox = new System.Windows.Forms.TextBox();
             this.panel1 = new System.Windows.Forms.Panel();
-            this.menuStrip1 = new System.Windows.Forms.MenuStrip();
+            this.FolderMenu = new System.Windows.Forms.MenuStrip();
             this.файлToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.загрузитьToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.сохранитьToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.LoadToolStrip = new System.Windows.Forms.ToolStripMenuItem();
+            this.SaveToolStrip = new System.Windows.Forms.ToolStripMenuItem();
             this.Menu = new System.Windows.Forms.ToolStrip();
-            this.toolStripButton1 = new System.Windows.Forms.ToolStripButton();
-            this.toolStripButton2 = new System.Windows.Forms.ToolStripButton();
+            this.DefStripButton = new System.Windows.Forms.ToolStripButton();
+            this.TopStripButton = new System.Windows.Forms.ToolStripButton();
             this.Reload = new System.Windows.Forms.Button();
             this.reloaded = new System.Windows.Forms.ToolTip(this.components);
             ((System.ComponentModel.ISupportInitialize)(this.ProductTable)).BeginInit();
             this.panel1.SuspendLayout();
-            this.menuStrip1.SuspendLayout();
+            this.FolderMenu.SuspendLayout();
             this.Menu.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -188,79 +188,83 @@
             this.panel1.Size = new System.Drawing.Size(782, 30);
             this.panel1.TabIndex = 12;
             // 
-            // menuStrip1
+            // FolderMenu
             // 
-            this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.FolderMenu.BackColor = System.Drawing.SystemColors.Control;
+            this.FolderMenu.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.файлToolStripMenuItem});
-            this.menuStrip1.Location = new System.Drawing.Point(0, 0);
-            this.menuStrip1.Name = "menuStrip1";
-            this.menuStrip1.Size = new System.Drawing.Size(1149, 24);
-            this.menuStrip1.TabIndex = 13;
-            this.menuStrip1.Text = "menuStrip1";
+            this.FolderMenu.Location = new System.Drawing.Point(0, 0);
+            this.FolderMenu.Name = "FolderMenu";
+            this.FolderMenu.Size = new System.Drawing.Size(1149, 24);
+            this.FolderMenu.TabIndex = 13;
+            this.FolderMenu.Text = "menuStrip1";
             // 
             // файлToolStripMenuItem
             // 
             this.файлToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.загрузитьToolStripMenuItem,
-            this.сохранитьToolStripMenuItem});
+            this.LoadToolStrip,
+            this.SaveToolStrip});
+            this.файлToolStripMenuItem.Image = ((System.Drawing.Image)(resources.GetObject("файлToolStripMenuItem.Image")));
             this.файлToolStripMenuItem.Name = "файлToolStripMenuItem";
-            this.файлToolStripMenuItem.Size = new System.Drawing.Size(48, 20);
+            this.файлToolStripMenuItem.Size = new System.Drawing.Size(64, 20);
             this.файлToolStripMenuItem.Text = "Файл";
             // 
-            // загрузитьToolStripMenuItem
+            // LoadToolStrip
             // 
-            this.загрузитьToolStripMenuItem.Image = ((System.Drawing.Image)(resources.GetObject("загрузитьToolStripMenuItem.Image")));
-            this.загрузитьToolStripMenuItem.Name = "загрузитьToolStripMenuItem";
-            this.загрузитьToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
-            this.загрузитьToolStripMenuItem.Text = "Загрузить";
+            this.LoadToolStrip.Image = ((System.Drawing.Image)(resources.GetObject("LoadToolStrip.Image")));
+            this.LoadToolStrip.Name = "LoadToolStrip";
+            this.LoadToolStrip.Size = new System.Drawing.Size(180, 22);
+            this.LoadToolStrip.Text = "Загрузить";
+            this.LoadToolStrip.ToolTipText = "CSV";
             // 
-            // сохранитьToolStripMenuItem
+            // SaveToolStrip
             // 
-            this.сохранитьToolStripMenuItem.Image = ((System.Drawing.Image)(resources.GetObject("сохранитьToolStripMenuItem.Image")));
-            this.сохранитьToolStripMenuItem.Name = "сохранитьToolStripMenuItem";
-            this.сохранитьToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
-            this.сохранитьToolStripMenuItem.Text = "Сохранить";
+            this.SaveToolStrip.Image = ((System.Drawing.Image)(resources.GetObject("SaveToolStrip.Image")));
+            this.SaveToolStrip.Name = "SaveToolStrip";
+            this.SaveToolStrip.Size = new System.Drawing.Size(180, 22);
+            this.SaveToolStrip.Text = "Сохранить";
+            this.SaveToolStrip.ToolTipText = "HTML";
             // 
             // Menu
             // 
             this.Menu.Dock = System.Windows.Forms.DockStyle.Left;
             this.Menu.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.toolStripButton1,
-            this.toolStripButton2});
+            this.DefStripButton,
+            this.TopStripButton});
             this.Menu.Location = new System.Drawing.Point(0, 24);
             this.Menu.Name = "Menu";
             this.Menu.Size = new System.Drawing.Size(131, 397);
             this.Menu.TabIndex = 14;
             this.Menu.Text = "toolStrip1";
             // 
-            // toolStripButton1
+            // DefStripButton
             // 
-            this.toolStripButton1.AutoSize = false;
-            this.toolStripButton1.DoubleClickEnabled = true;
-            this.toolStripButton1.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.toolStripButton1.Image = ((System.Drawing.Image)(resources.GetObject("toolStripButton1.Image")));
-            this.toolStripButton1.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.toolStripButton1.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.toolStripButton1.Name = "toolStripButton1";
-            this.toolStripButton1.Size = new System.Drawing.Size(130, 24);
-            this.toolStripButton1.Text = "Дефицитные";
-            this.toolStripButton1.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.toolStripButton1.ToolTipText = "Показать дефицитные товары";
-            this.toolStripButton1.Click += new System.EventHandler(this.defStripButton_Click);
+            this.DefStripButton.AutoSize = false;
+            this.DefStripButton.DoubleClickEnabled = true;
+            this.DefStripButton.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.DefStripButton.Image = ((System.Drawing.Image)(resources.GetObject("DefStripButton.Image")));
+            this.DefStripButton.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.DefStripButton.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.DefStripButton.Name = "DefStripButton";
+            this.DefStripButton.Size = new System.Drawing.Size(130, 24);
+            this.DefStripButton.Text = "Дефицитные";
+            this.DefStripButton.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.DefStripButton.ToolTipText = "Показать дефицитные товары";
+            this.DefStripButton.Click += new System.EventHandler(this.defStripButton_Click);
             // 
-            // toolStripButton2
+            // TopStripButton
             // 
-            this.toolStripButton2.AutoSize = false;
-            this.toolStripButton2.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.toolStripButton2.Image = ((System.Drawing.Image)(resources.GetObject("toolStripButton2.Image")));
-            this.toolStripButton2.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.toolStripButton2.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.toolStripButton2.Name = "toolStripButton2";
-            this.toolStripButton2.Size = new System.Drawing.Size(130, 24);
-            this.toolStripButton2.Text = "Продаваемые";
-            this.toolStripButton2.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.toolStripButton2.ToolTipText = "Показать 10 самых продаваемых товаров";
-            this.toolStripButton2.Click += new System.EventHandler(this.toolStripButton2_Click);
+            this.TopStripButton.AutoSize = false;
+            this.TopStripButton.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.TopStripButton.Image = ((System.Drawing.Image)(resources.GetObject("TopStripButton.Image")));
+            this.TopStripButton.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.TopStripButton.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.TopStripButton.Name = "TopStripButton";
+            this.TopStripButton.Size = new System.Drawing.Size(130, 24);
+            this.TopStripButton.Text = "Продаваемые";
+            this.TopStripButton.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.TopStripButton.ToolTipText = "Показать 10 самых продаваемых товаров";
+            this.TopStripButton.Click += new System.EventHandler(this.toolStripButton2_Click);
             // 
             // Reload
             // 
@@ -290,14 +294,15 @@
             this.Controls.Add(this.TrendButton);
             this.Controls.Add(this.SeasonButton);
             this.Controls.Add(this.ProductTable);
-            this.Controls.Add(this.menuStrip1);
-            this.MainMenuStrip = this.menuStrip1;
+            this.Controls.Add(this.FolderMenu);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
+            this.MainMenuStrip = this.FolderMenu;
             this.Name = "MainForn";
-            this.Text = "Product";
+            this.Text = "CSV Sales Analyzer";
             ((System.ComponentModel.ISupportInitialize)(this.ProductTable)).EndInit();
             this.panel1.ResumeLayout(false);
-            this.menuStrip1.ResumeLayout(false);
-            this.menuStrip1.PerformLayout();
+            this.FolderMenu.ResumeLayout(false);
+            this.FolderMenu.PerformLayout();
             this.Menu.ResumeLayout(false);
             this.Menu.PerformLayout();
             this.ResumeLayout(false);
@@ -321,13 +326,13 @@
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.TextBox trendingWeeksTextBox;
         private System.Windows.Forms.Panel panel1;
-        private System.Windows.Forms.MenuStrip menuStrip1;
+        private System.Windows.Forms.MenuStrip FolderMenu;
         private System.Windows.Forms.ToolStripMenuItem файлToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem загрузитьToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem сохранитьToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem LoadToolStrip;
+        private System.Windows.Forms.ToolStripMenuItem SaveToolStrip;
         private System.Windows.Forms.ToolStrip Menu;
-        private System.Windows.Forms.ToolStripButton toolStripButton1;
-        private System.Windows.Forms.ToolStripButton toolStripButton2;
+        private System.Windows.Forms.ToolStripButton DefStripButton;
+        private System.Windows.Forms.ToolStripButton TopStripButton;
         private System.Windows.Forms.Button Reload;
         private System.Windows.Forms.ToolTip reloaded;
     }
