@@ -26,41 +26,14 @@ namespace WinFormsZimneeZ
             History.AddAllSales();
             ProductTable.DataSource = History.GetAllSales();
 
+
+            picUP.Image = Image.FromFile("bull-market.gif");
+            picUP.SizeMode = PictureBoxSizeMode.StretchImage;
+
+            picDOWN.Image = Image.FromFile("bear-market.gif");
+            picDOWN.SizeMode = PictureBoxSizeMode.StretchImage;
+
             reloaded.SetToolTip(Reload, "Сбросить");
-        }
-
-        private void LoadCsvButton_Click(object sender, EventArgs e)
-        {
-            
-
-            OpenFileDialog openFileDialog = new OpenFileDialog();
-            openFileDialog.Filter = "CSV Files (*.csv)|*.csv|All Files (*.*)|*.*";
-            openFileDialog.Title = "Select a CSV File";
-
-            if (openFileDialog.ShowDialog() == DialogResult.OK)
-            {
-                string filePath = openFileDialog.FileName;
-                try
-                {
-                    csvLoader.LoadCsvData(filePath, History);
-                }
-                catch (Exception ex)
-                {
-                    MessageBox.Show($"Ошибка: {ex.Message}", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                }
-            }
-        }
-
-        private void DefButton_Click(object sender, EventArgs e)
-        {
-            BindingList<ProductInfo> Items = History.GetProductsWithZeroResidueAndLatestSale();
-            ProductTable.DataSource = Items;
-        }
-
-        private void TopButton_Click(object sender, EventArgs e)
-        {
-            BindingList<ProductInfo> Items = History.ShowBestSellingProducts();
-            ProductTable.DataSource = Items;
         }
 
         private void SeasonButton_Click(object sender, EventArgs e)
@@ -98,23 +71,7 @@ namespace WinFormsZimneeZ
 
             ProductTable.DataSource = Items;
         }
-        private void ReturnButton_Click(object sender, EventArgs e)
-        {
-            ProductTable.DataSource = History.GetAllSales();
-        }
 
-        private void SaveHtmlButton_Click(object sender, EventArgs e)
-        {
-            SaveFileDialog saveFileDialog = new SaveFileDialog();
-            saveFileDialog.Filter = "HTML files (*.html)|*.html|All files (*.*)|*.*";
-            saveFileDialog.Title = "Save DataGridView as HTML";
-            if (saveFileDialog.ShowDialog() == DialogResult.OK)
-            {
-                string filePath = saveFileDialog.FileName;
-                LoadCsvSaveHtml.SaveDataGridViewToHtml(ProductTable, filePath);
-                MessageBox.Show("Данные успешно сохранены!", "Сохранение завершено", MessageBoxButtons.OK);
-            }
-        }
 
         private void defStripButton_Click(object sender, EventArgs e)
         {
@@ -132,6 +89,39 @@ namespace WinFormsZimneeZ
         {
             this.ActiveControl = null;
             ProductTable.DataSource = History.GetAllSales();
+        }
+
+        private void LoadToolStrip_Click(object sender, EventArgs e)
+        {
+            OpenFileDialog openFileDialog = new OpenFileDialog();
+            openFileDialog.Filter = "CSV Files (*.csv)|*.csv|All Files (*.*)|*.*";
+            openFileDialog.Title = "Select a CSV File";
+
+            if (openFileDialog.ShowDialog() == DialogResult.OK)
+            {
+                string filePath = openFileDialog.FileName;
+                try
+                {
+                    csvLoader.LoadCsvData(filePath, History);
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show($"Ошибка: {ex.Message}", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+            }
+        }
+
+        private void SaveToolStrip_Click(object sender, EventArgs e)
+        {
+            SaveFileDialog saveFileDialog = new SaveFileDialog();
+            saveFileDialog.Filter = "HTML files (*.html)|*.html|All files (*.*)|*.*";
+            saveFileDialog.Title = "Save DataGridView as HTML";
+            if (saveFileDialog.ShowDialog() == DialogResult.OK)
+            {
+                string filePath = saveFileDialog.FileName;
+                LoadCsvSaveHtml.SaveDataGridViewToHtml(ProductTable, filePath);
+                MessageBox.Show("Данные успешно сохранены!", "Сохранение завершено", MessageBoxButtons.OK);
+            }
         }
     }
 }
