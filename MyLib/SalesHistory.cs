@@ -15,11 +15,7 @@ namespace MyLib
         BindingList<ProductInfo> AllSales_ = new BindingList<ProductInfo>();
         public void AddAllSales()
         {
-            AllSales_.Add(new ProductInfo("321 '321'", "Продукты", 3.50m, 10, 18, new DateTime(2025, 03, 10)));
-            AllSales_.Add(new ProductInfo("321 '321'", "Продукты", 3.50m, 30, 18, new DateTime(2025, 03, 24)));
-
-            AllSales_.Add(new ProductInfo("123 '123'", "Продукты", 3.50m, 10, 18, new DateTime(2025, 03, 3)));
-            AllSales_.Add(new ProductInfo("123 '123'", "Продукты", 3.50m, 30, 18, new DateTime(2025, 03, 24)));
+           
 
             AllSales_.Add(new ProductInfo("Смартфон Galaxy S23", "Электроника", 10.00m, 65, 0, new DateTime(2025, 06, 20))); // Июнь
             AllSales_.Add(new ProductInfo("Смартфон Galaxy S23", "Электроника", 10.00m, 35, 0, new DateTime(2025, 07, 20))); // Июль
