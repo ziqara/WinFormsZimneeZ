@@ -1,14 +1,11 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.ComponentModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace MyLib
 {
-     public class ProductInfo
-     {
+    // Класс для хранения основной информации о товаре
+    public class ProductInfo
+    {
         [DisplayName("Наименование")]
         public string Name { get; set; }
         [DisplayName("Категория")]
@@ -22,7 +19,6 @@ namespace MyLib
         [DisplayName("Дата последней продажи")]
         public DateTime LastSell { get; set; }
 
-
         public ProductInfo() { }
 
         public ProductInfo(string name_, string category_, decimal price_, int quantitySold_, int residue_, DateTime lastSell_)
@@ -35,29 +31,17 @@ namespace MyLib
             LastSell = lastSell_;
         }
 
-        
-
         public override bool Equals(object obj)
         {
-            if (obj == null || GetType() != obj.GetType())
+            if (obj is ProductInfo other)
             {
-                return false;
+                return Name == other.Name &&
+                       Category == other.Category &&
+                       Price == other.Price &&
+                       Residue == other.Residue &&
+                       LastSell == other.LastSell;
             }
-            return Equals(obj as ProductInfo);
-        }
-
-        public bool Equals(ProductInfo other)
-        {
-            if (other == null)
-            {
-                return false;
-            }
-
-            return Name == other.Name &&
-                   Category == other.Category &&
-                   Price == other.Price &&
-                   Residue == other.Residue &&
-                   LastSell == other.LastSell;
+            return false;
         }
 
         public override int GetHashCode()
@@ -65,8 +49,8 @@ namespace MyLib
             unchecked
             {
                 int hash = 17;
-                hash = hash * 23 + (Name != null ? Name.GetHashCode() : 0);
-                hash = hash * 23 + (Category != null ? Category.GetHashCode() : 0);
+                hash = hash * 23 + (Name?.GetHashCode() ?? 0);
+                hash = hash * 23 + (Category?.GetHashCode() ?? 0);
                 hash = hash * 23 + Price.GetHashCode();
                 hash = hash * 23 + Residue.GetHashCode();
                 hash = hash * 23 + LastSell.GetHashCode();

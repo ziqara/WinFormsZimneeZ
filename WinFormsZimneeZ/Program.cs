@@ -16,7 +16,7 @@ namespace WinFormsZimneeZ
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new MainForn());
+            Application.Run(new MainForm());
         }
     }
 }

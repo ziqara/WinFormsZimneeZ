@@ -46,6 +46,7 @@
     <Compile Include="ProductInfo.cs" />
     <Compile Include="SalesHistory.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="SeasonProductInfo.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

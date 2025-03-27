@@ -1,6 +1,6 @@
 ﻿namespace WinFormsZimneeZ
 {
-    partial class MainForn
+    partial class MainForm
     {
         /// <summary>
         /// Обязательная переменная конструктора.
@@ -29,17 +29,14 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle10 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle11 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle12 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForn));
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
             this.ProductTable = new System.Windows.Forms.DataGridView();
             this.SeasonButton = new System.Windows.Forms.Button();
             this.TrendButton = new System.Windows.Forms.Button();
             this.openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
-            this.SeasonBox = new System.Windows.Forms.TextBox();
-            this.label1 = new System.Windows.Forms.Label();
-            this.trendingWeeksTextBox = new System.Windows.Forms.TextBox();
             this.FolderMenu = new System.Windows.Forms.MenuStrip();
             this.файлToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.LoadToolStrip = new System.Windows.Forms.ToolStripMenuItem();
@@ -50,7 +47,7 @@
             this.TopStripButton = new System.Windows.Forms.ToolStripButton();
             this.reloaded = new System.Windows.Forms.ToolTip(this.components);
             this.picDOWN = new System.Windows.Forms.PictureBox();
-            this.label2 = new System.Windows.Forms.Label();
+            this.TurnList = new System.Windows.Forms.ToolStripMenuItem();
             ((System.ComponentModel.ISupportInitialize)(this.ProductTable)).BeginInit();
             this.FolderMenu.SuspendLayout();
             this.MenuFiltr.SuspendLayout();
@@ -59,46 +56,46 @@
             // 
             // ProductTable
             // 
-            this.ProductTable.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.AllCells;
+            this.ProductTable.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.ColumnHeader;
             this.ProductTable.AutoSizeRowsMode = System.Windows.Forms.DataGridViewAutoSizeRowsMode.AllCells;
             this.ProductTable.BackgroundColor = System.Drawing.SystemColors.ActiveCaptionText;
             this.ProductTable.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.ProductTable.CellBorderStyle = System.Windows.Forms.DataGridViewCellBorderStyle.Raised;
-            dataGridViewCellStyle10.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle10.BackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle10.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            dataGridViewCellStyle10.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle10.SelectionBackColor = System.Drawing.Color.Transparent;
-            dataGridViewCellStyle10.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle10.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.ProductTable.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle10;
+            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle1.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            dataGridViewCellStyle1.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle1.SelectionBackColor = System.Drawing.Color.Transparent;
+            dataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.ProductTable.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
             this.ProductTable.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.ProductTable.Cursor = System.Windows.Forms.Cursors.Default;
-            dataGridViewCellStyle11.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle11.BackColor = System.Drawing.SystemColors.InactiveCaptionText;
-            dataGridViewCellStyle11.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            dataGridViewCellStyle11.ForeColor = System.Drawing.SystemColors.ControlText;
-            dataGridViewCellStyle11.SelectionBackColor = System.Drawing.Color.White;
-            dataGridViewCellStyle11.SelectionForeColor = System.Drawing.SystemColors.ActiveCaption;
-            dataGridViewCellStyle11.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-            this.ProductTable.DefaultCellStyle = dataGridViewCellStyle11;
+            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle2.BackColor = System.Drawing.SystemColors.InactiveCaptionText;
+            dataGridViewCellStyle2.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            dataGridViewCellStyle2.ForeColor = System.Drawing.SystemColors.ControlText;
+            dataGridViewCellStyle2.SelectionBackColor = System.Drawing.Color.White;
+            dataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.ActiveCaption;
+            dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.ProductTable.DefaultCellStyle = dataGridViewCellStyle2;
             this.ProductTable.Dock = System.Windows.Forms.DockStyle.Right;
             this.ProductTable.EnableHeadersVisualStyles = false;
             this.ProductTable.GridColor = System.Drawing.Color.Black;
-            this.ProductTable.Location = new System.Drawing.Point(201, 0);
+            this.ProductTable.Location = new System.Drawing.Point(262, 0);
             this.ProductTable.Name = "ProductTable";
             this.ProductTable.ReadOnly = true;
-            dataGridViewCellStyle12.BackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle12.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            dataGridViewCellStyle12.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle12.SelectionBackColor = System.Drawing.Color.Transparent;
-            dataGridViewCellStyle12.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle12.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.ProductTable.RowHeadersDefaultCellStyle = dataGridViewCellStyle12;
+            dataGridViewCellStyle3.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle3.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            dataGridViewCellStyle3.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle3.SelectionBackColor = System.Drawing.Color.Transparent;
+            dataGridViewCellStyle3.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.ProductTable.RowHeadersDefaultCellStyle = dataGridViewCellStyle3;
             this.ProductTable.RowHeadersVisible = false;
             this.ProductTable.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
             this.ProductTable.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.ProductTable.Size = new System.Drawing.Size(788, 415);
+            this.ProductTable.Size = new System.Drawing.Size(688, 321);
             this.ProductTable.TabIndex = 0;
             // 
             // SeasonButton
@@ -106,7 +103,7 @@
             this.SeasonButton.AutoSize = true;
             this.SeasonButton.Cursor = System.Windows.Forms.Cursors.Hand;
             this.SeasonButton.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.SeasonButton.Location = new System.Drawing.Point(10, 137);
+            this.SeasonButton.Location = new System.Drawing.Point(48, 128);
             this.SeasonButton.Name = "SeasonButton";
             this.SeasonButton.Size = new System.Drawing.Size(168, 27);
             this.SeasonButton.TabIndex = 3;
@@ -116,9 +113,9 @@
             // 
             // TrendButton
             // 
-            this.TrendButton.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.TrendButton.Cursor = System.Windows.Forms.Cursors.No;
             this.TrendButton.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Bold);
-            this.TrendButton.Location = new System.Drawing.Point(10, 221);
+            this.TrendButton.Location = new System.Drawing.Point(48, 165);
             this.TrendButton.Name = "TrendButton";
             this.TrendButton.Size = new System.Drawing.Size(168, 27);
             this.TrendButton.TabIndex = 4;
@@ -130,50 +127,16 @@
             // 
             this.openFileDialog1.FileName = "openFileDialog1";
             // 
-            // SeasonBox
-            // 
-            this.SeasonBox.BackColor = System.Drawing.SystemColors.HotTrack;
-            this.SeasonBox.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.SeasonBox.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.SeasonBox.Location = new System.Drawing.Point(10, 111);
-            this.SeasonBox.Name = "SeasonBox";
-            this.SeasonBox.Size = new System.Drawing.Size(168, 18);
-            this.SeasonBox.TabIndex = 7;
-            this.SeasonBox.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            // 
-            // label1
-            // 
-            this.label1.AutoSize = true;
-            this.label1.BackColor = System.Drawing.Color.Transparent;
-            this.label1.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.label1.ForeColor = System.Drawing.Color.DarkMagenta;
-            this.label1.Location = new System.Drawing.Point(7, 91);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(171, 17);
-            this.label1.TabIndex = 8;
-            this.label1.Text = "Введите процент продаж";
-            // 
-            // trendingWeeksTextBox
-            // 
-            this.trendingWeeksTextBox.BackColor = System.Drawing.SystemColors.HotTrack;
-            this.trendingWeeksTextBox.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.trendingWeeksTextBox.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Bold);
-            this.trendingWeeksTextBox.ForeColor = System.Drawing.SystemColors.WindowText;
-            this.trendingWeeksTextBox.Location = new System.Drawing.Point(10, 195);
-            this.trendingWeeksTextBox.Name = "trendingWeeksTextBox";
-            this.trendingWeeksTextBox.Size = new System.Drawing.Size(168, 18);
-            this.trendingWeeksTextBox.TabIndex = 11;
-            this.trendingWeeksTextBox.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            // 
             // FolderMenu
             // 
             this.FolderMenu.BackColor = System.Drawing.SystemColors.Control;
             this.FolderMenu.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.файлToolStripMenuItem,
+            this.TurnList,
             this.rdtToolStripMenuItem});
             this.FolderMenu.Location = new System.Drawing.Point(0, 0);
             this.FolderMenu.Name = "FolderMenu";
-            this.FolderMenu.Size = new System.Drawing.Size(201, 25);
+            this.FolderMenu.Size = new System.Drawing.Size(262, 25);
             this.FolderMenu.TabIndex = 13;
             this.FolderMenu.Text = "menuStrip1";
             // 
@@ -222,7 +185,7 @@
             this.DefStripButton,
             this.TopStripButton});
             this.MenuFiltr.LayoutStyle = System.Windows.Forms.ToolStripLayoutStyle.VerticalStackWithOverflow;
-            this.MenuFiltr.Location = new System.Drawing.Point(10, 29);
+            this.MenuFiltr.Location = new System.Drawing.Point(48, 63);
             this.MenuFiltr.Name = "MenuFiltr";
             this.MenuFiltr.RenderMode = System.Windows.Forms.ToolStripRenderMode.System;
             this.MenuFiltr.Size = new System.Drawing.Size(131, 56);
@@ -262,7 +225,7 @@
             // picDOWN
             // 
             this.picDOWN.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("picDOWN.BackgroundImage")));
-            this.picDOWN.Location = new System.Drawing.Point(10, 283);
+            this.picDOWN.Location = new System.Drawing.Point(48, 228);
             this.picDOWN.Name = "picDOWN";
             this.picDOWN.Size = new System.Drawing.Size(168, 93);
             this.picDOWN.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
@@ -270,40 +233,35 @@
             this.picDOWN.TabStop = false;
             this.picDOWN.Visible = false;
             // 
-            // label2
+            // TurnList
             // 
-            this.label2.AutoSize = true;
-            this.label2.BackColor = System.Drawing.Color.Transparent;
-            this.label2.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.label2.ForeColor = System.Drawing.Color.LightCoral;
-            this.label2.Location = new System.Drawing.Point(7, 175);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(171, 17);
-            this.label2.TabIndex = 18;
-            this.label2.Text = "Введите процент продаж";
+            this.TurnList.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Bold);
+            this.TurnList.Image = ((System.Drawing.Image)(resources.GetObject("TurnList.Image")));
+            this.TurnList.Name = "TurnList";
+            this.TurnList.Size = new System.Drawing.Size(108, 21);
+            this.TurnList.Text = "Развернуть";
+            this.TurnList.Click += new System.EventHandler(this.TurnList_Click);
             // 
-            // MainForn
+            // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.AutoScroll = true;
             this.BackColor = System.Drawing.Color.White;
-            this.ClientSize = new System.Drawing.Size(989, 415);
-            this.Controls.Add(this.label2);
-            this.Controls.Add(this.label1);
+            this.ClientSize = new System.Drawing.Size(967, 259);
             this.Controls.Add(this.MenuFiltr);
-            this.Controls.Add(this.trendingWeeksTextBox);
-            this.Controls.Add(this.SeasonBox);
             this.Controls.Add(this.TrendButton);
             this.Controls.Add(this.SeasonButton);
             this.Controls.Add(this.FolderMenu);
             this.Controls.Add(this.picDOWN);
             this.Controls.Add(this.ProductTable);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
-            this.HelpButton = true;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MainMenuStrip = this.FolderMenu;
             this.MaximizeBox = false;
-            this.Name = "MainForn";
+            this.MinimizeBox = false;
+            this.Name = "MainForm";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "CSV Sales Analyzer";
             this.Load += new System.EventHandler(this.MainForn_Load);
             ((System.ComponentModel.ISupportInitialize)(this.ProductTable)).EndInit();
@@ -323,8 +281,6 @@
         private System.Windows.Forms.Button SeasonButton;
         private System.Windows.Forms.Button TrendButton;
         private System.Windows.Forms.OpenFileDialog openFileDialog1;
-        private System.Windows.Forms.TextBox SeasonBox;
-        private System.Windows.Forms.TextBox trendingWeeksTextBox;
         private System.Windows.Forms.MenuStrip FolderMenu;
         private System.Windows.Forms.ToolStripMenuItem файлToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem LoadToolStrip;
@@ -333,10 +289,9 @@
         private System.Windows.Forms.ToolStripButton DefStripButton;
         private System.Windows.Forms.ToolStripButton TopStripButton;
         private System.Windows.Forms.ToolTip reloaded;
-        private System.Windows.Forms.Label label1;
         private System.Windows.Forms.PictureBox picDOWN;
-        private System.Windows.Forms.Label label2;
         private System.Windows.Forms.ToolStripMenuItem rdtToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem TurnList;
     }
 }
 

@@ -10,64 +10,51 @@ using System.Xml.Linq;
 
 namespace MyLib
 {
+    public static class BindingListExtensions
+    {
+        public static BindingList<T> ToBindingList<T>(this IEnumerable<T> source)
+        {
+            return new BindingList<T>(source.ToList());
+        }
+    }
+
     public class SalesHistory
     {
-        BindingList<ProductInfo> AllSales_ = new BindingList<ProductInfo>();
-        public void AddAllSales()
-        {
-           
-
-            AllSales_.Add(new ProductInfo("Смартфон Galaxy S23", "Электроника", 10.00m, 65, 0, new DateTime(2025, 06, 20))); // Июнь
-            AllSales_.Add(new ProductInfo("Смартфон Galaxy S23", "Электроника", 10.00m, 35, 0, new DateTime(2025, 07, 20))); // Июль
-
-            AllSales_.Add(new ProductInfo("Ноутбук Dell XPS 15", "Электроника", 20.50m, 10, 10, new DateTime(2025, 03, 20))); // Март
-            AllSales_.Add(new ProductInfo("Ноутбук Dell XPS 15", "Электроника", 20.50m, 12, 10, new DateTime(2025, 04, 20))); // Апрель
-
-            AllSales_.Add(new ProductInfo("Футболка мужская хлопок", "Одежда", 5.75m, 20, 0, new DateTime(2025, 03, 22))); // Март
-            AllSales_.Add(new ProductInfo("Футболка мужская хлопок", "Одежда", 5.75m, 20, 15, new DateTime(2025, 03, 20))); // Март
-            AllSales_.Add(new ProductInfo("Футболка мужская хлопок", "Одежда", 5.75m, 22, 0, new DateTime(2025, 04, 22))); // Апрель
-
-            AllSales_.Add(new ProductInfo("Книга 'Мастер и Маргарита'", "Книги", 15.00m, 15, 5, new DateTime(2025, 03, 21))); // Март
-            AllSales_.Add(new ProductInfo("Книга 'Мастер и Маргарита'", "Книги", 15.00m, 5, 5, new DateTime(2025, 04, 21))); // Апрель
-            AllSales_.Add(new ProductInfo("Книга 'Мастер и Маргарита'", "Книги", 15.00m, 25, 5, new DateTime(2025, 12, 21))); // Декабрь
-
-            AllSales_.Add(new ProductInfo("Наушники беспроводные Sony", "Электроника", 25.00m, 5, 20, new DateTime(2025, 03, 22))); // Март
-            AllSales_.Add(new ProductInfo("Наушники беспроводные Sony", "Электроника", 25.00m, 7, 20, new DateTime(2025, 05, 22))); // Май
-
-            AllSales_.Add(new ProductInfo("Кофе молотый Lavazza", "Продукты", 8.50m, 30, 8, new DateTime(2025, 03, 23))); // Март
-            AllSales_.Add(new ProductInfo("Кофе молотый Lavazza", "Продукты", 8.50m, 10, 8, new DateTime(2025, 04, 23))); // Апрель
-            AllSales_.Add(new ProductInfo("Кофе молотый Lavazza", "Продукты", 8.50m, 15, 8, new DateTime(2025, 12, 23))); // Декабрь
-
-            AllSales_.Add(new ProductInfo("Шампунь для волос Pantene", "Косметика", 12.00m, 12, 12, new DateTime(2025, 03, 24))); // Март
-            AllSales_.Add(new ProductInfo("Шампунь для волос Pantene", "Косметика", 12.00m, 15, 12, new DateTime(2025, 02, 24))); // Февраль
-
-            AllSales_.Add(new ProductInfo("Чайник электрический Bosch", "Бытовая техника", 18.75m, 8, 2, new DateTime(2025, 03, 25))); // Март
-            AllSales_.Add(new ProductInfo("Чайник электрический Bosch", "Бытовая техника", 18.75m, 9, 2, new DateTime(2025, 01, 25))); // Январь
-
-            AllSales_.Add(new ProductInfo("Зубная паста Colgate", "Гигиена", 6.25m, 22, 18, new DateTime(2025, 03, 26))); // Март
-            AllSales_.Add(new ProductInfo("Зубная паста Colgate", "Гигиена", 6.25m, 8, 18, new DateTime(2025, 04, 26))); // Апрель
-            AllSales_.Add(new ProductInfo("Зубная паста Colgate", "Гигиена", 6.25m, 25, 18, new DateTime(2025, 05, 26))); // Май
-
-            AllSales_.Add(new ProductInfo("Телевизор Samsung QLED", "Электроника", 30.00m, 90, 0, new DateTime(2025, 12, 01))); // Декабрь
-            AllSales_.Add(new ProductInfo("Телевизор Samsung QLED", "Электроника", 30.00m, 10, 0, new DateTime(2025, 01, 01))); // Январь
-            AllSales_.Add(new ProductInfo("Телевизор Samsung QLED", "Электроника", 30.00m, 15, 0, new DateTime(2025, 11, 01))); // Ноябрь
-
-            AllSales_.Add(new ProductInfo("Хлеб 'Бородинский'", "Продукты", 2.50m, 40, 20, new DateTime(2025, 02, 10))); // Февраль
-            AllSales_.Add(new ProductInfo("Хлеб 'Бородинский'", "Продукты", 2.50m, 38, 20, new DateTime(2025, 03, 10))); // Март
-
-            AllSales_.Add(new ProductInfo("Вода минеральная 'Аква'", "Продукты", 1.00m, 50, 50, new DateTime(2025, 07, 05))); // Июль
-
-            AllSales_.Add(new ProductInfo("Молоко 'Простоквашино'", "Продукты", 3.20m, 25, 15, new DateTime(2025, 06, 15))); // Июнь
-            AllSales_.Add(new ProductInfo("Молоко 'Простоквашино'", "Продукты", 3.20m, 28, 15, new DateTime(2025, 08, 15))); // Август
-
-            AllSales_.Add(new ProductInfo("Кефир 'Домик в деревне'", "Продукты", 3.50m, 32, 18, new DateTime(2025, 05, 20))); // Май
-            AllSales_.Add(new ProductInfo("Кефир 'Домик в деревне'", "Продукты", 3.50m, 30, 18, new DateTime(2025, 07, 20))); // Июль
-        }
-
+        private BindingList<ProductInfo> AllSales_ = new BindingList<ProductInfo>();
 
         public BindingList<ProductInfo> GetAllSales()
         {
             return AllSales_;
+        }
+
+        // Метод группировки товаров по наименованию, категории и цене.
+        // В сгруппированном наборе суммируется количество проданного и остаток,
+        // а дата последней продажи определяется как максимальная (самая свежая)
+        // Метод группировки товаров по наименованию, категории и цене.
+        // Количество проданного суммируется,
+        // дата последней продажи определяется как максимальная,
+        // а остаток берётся из записи с самой поздней датой.
+        public BindingList<ProductInfo> GetGroupedProducts()
+        {
+            var grouped = AllSales_
+                .GroupBy(p => new { p.Name, p.Category, p.Price })
+                .Select(g =>
+                {
+                    // Находим запись с самой поздней датой продажи
+                    var latestSale = g.OrderByDescending(p => p.LastSell).First();
+
+                    return new ProductInfo(
+                        g.Key.Name,                     // Наименование
+                        g.Key.Category,                 // Категория
+                        g.Key.Price,                    // Цена
+                        g.Sum(p => p.QuantitySold),     // Суммарное количество проданного
+                        latestSale.Residue,             // Остаток из самой поздней продажи
+                        latestSale.LastSell             // Дата последней продажи (максимальная)
+                    );
+                })
+                .ToList();
+
+            return new BindingList<ProductInfo>(grouped);
         }
 
         public void AddSales(ProductInfo newProduct)
@@ -75,8 +62,132 @@ namespace MyLib
             AllSales_.Add(newProduct);
         }
 
-        
+        public BindingList<SeasonProductInfo> GetSeasonSales()
+        {
+            BindingList<SeasonProductInfo> seasonSales = new BindingList<SeasonProductInfo>();
 
+            foreach (var sale in AllSales_)
+            {
+                SeasonProductInfo seasonProduct = new SeasonProductInfo(sale);
+                // Заполняем соответствующий месяц по дате продажи
+                switch (sale.LastSell.Month)
+                {
+                    case 1: seasonProduct.January += sale.QuantitySold; break;
+                    case 2: seasonProduct.February += sale.QuantitySold; break;
+                    case 3: seasonProduct.March += sale.QuantitySold; break;
+                    case 4: seasonProduct.April += sale.QuantitySold; break;
+                    case 5: seasonProduct.May += sale.QuantitySold; break;
+                    case 6: seasonProduct.June += sale.QuantitySold; break;
+                    case 7: seasonProduct.July += sale.QuantitySold; break;
+                    case 8: seasonProduct.August += sale.QuantitySold; break;
+                    case 9: seasonProduct.September += sale.QuantitySold; break;
+                    case 10: seasonProduct.October += sale.QuantitySold; break;
+                    case 11: seasonProduct.November += sale.QuantitySold; break;
+                    case 12: seasonProduct.December += sale.QuantitySold; break;
+                }
+                seasonSales.Add(seasonProduct);
+            }
+            return seasonSales;
+        }
+
+        // Пересчитываем процент увеличения для каждого товара
+        public void CalculatePercentages(BindingList<SeasonProductInfo> data)
+        {
+            foreach (var product in data)
+            {
+                // Собираем продажи по месяцам в массив для удобства
+                int[] monthlySales = {
+                    product.January, product.February, product.March, product.April,
+                    product.May, product.June, product.July, product.August,
+                    product.September, product.October, product.November, product.December
+                };
+
+                int totalSales = monthlySales.Sum();
+                if (totalSales > 0)
+                {
+                    int maxSales = monthlySales.Max();
+                    decimal percentage = ((decimal)maxSales / totalSales) * 100;
+                    product.Percentage = Math.Round(percentage, 2);
+                }
+                else
+                {
+                    product.Percentage = 0;
+                }
+            }
+        }
+
+        // Фильтрация сезонных товаров по введённому порогу процента
+        public BindingList<SeasonProductInfo> FilterSeasonalProducts(BindingList<SeasonProductInfo> data, decimal threshold)
+        {
+            BindingList<SeasonProductInfo> filteredData = new BindingList<SeasonProductInfo>();
+            foreach (var product in data)
+            {
+                if (IsSeasonal(product, threshold))
+                {
+                    filteredData.Add(product);
+                }
+            }
+            return filteredData;
+        }
+
+        // Метод определяет, сезонный ли товар, исходя из порога процента
+        private bool IsSeasonal(SeasonProductInfo product, decimal threshold)
+        {
+            int[] monthlySales = {
+                product.January, product.February, product.March, product.April,
+                product.May, product.June, product.July, product.August,
+                product.September, product.October, product.November, product.December
+            };
+
+            int totalSales = monthlySales.Sum();
+            if (totalSales == 0)
+            {
+                product.Percentage = 0;
+                return false;
+            }
+
+            int maxSales = monthlySales.Max();
+            // Вычисляем процент максимальных продаж от общего числа продаж
+            product.Percentage = Math.Round(((decimal)maxSales / totalSales) * 100, 2);
+
+            // Возвращаем true, если процент больше или равен пороговому значению
+            return product.Percentage >= threshold;
+        }
+
+
+        // Группировка товаров по наименованию, категории и цене с суммированием месячных данных
+        public BindingList<SeasonProductInfo> GroupProducts(BindingList<SeasonProductInfo> data)
+        {
+            var groupedProducts = data.GroupBy(p => new { p.Name, p.Category, p.Price })
+                .Select(g =>
+                {
+                    var firstProduct = g.First();
+                    SeasonProductInfo groupedProduct = new SeasonProductInfo(
+                        new ProductInfo(firstProduct.Name, firstProduct.Category, firstProduct.Price, 0, 0, DateTime.MinValue)
+                    );
+                    groupedProduct.January = g.Sum(p => p.January);
+                    groupedProduct.February = g.Sum(p => p.February);
+                    groupedProduct.March = g.Sum(p => p.March);
+                    groupedProduct.April = g.Sum(p => p.April);
+                    groupedProduct.May = g.Sum(p => p.May);
+                    groupedProduct.June = g.Sum(p => p.June);
+                    groupedProduct.July = g.Sum(p => p.July);
+                    groupedProduct.August = g.Sum(p => p.August);
+                    groupedProduct.September = g.Sum(p => p.September);
+                    groupedProduct.October = g.Sum(p => p.October);
+                    groupedProduct.November = g.Sum(p => p.November);
+                    groupedProduct.December = g.Sum(p => p.December);
+                    groupedProduct.Residue = g.Sum(p => p.Residue);
+                    groupedProduct.QuantitySold = g.Sum(p => p.QuantitySold);
+                    groupedProduct.LastSell = g.Max(p => p.LastSell);
+                    return groupedProduct;
+                })
+                .ToBindingList();
+            return groupedProducts;
+        }
+
+
+        // Метод показывает 10 самых продаваемых товаров
         public BindingList<ProductInfo> ShowBestSellingProducts()
         {
             var topProducts = AllSales_
@@ -118,143 +229,189 @@ namespace MyLib
             return bestSellingProducts;
         }
 
-
+        // Метод, который показывает товары с нулевым остатком, сортируя по последней дате продажи
         public BindingList<ProductInfo> GetProductsWithZeroResidueAndLatestSale()
         {
-            if (AllSales_ == null || AllSales_.Count == 0)
+            try
             {
+                // Если данных нет, сразу возвращаем пустой список
+                if (AllSales_ == null || AllSales_.Count == 0)
+                {
+                    return new BindingList<ProductInfo>();
+                }
+
+                // Группируем товары по наименованию и категории
+                var groupedProducts = AllSales_
+                    .GroupBy(p => new { p.Name, p.Category })
+                    .Select(g => new
+                    {
+                        // Выбираем запись с самой поздней датой продажи
+                        LatestSale = g.OrderByDescending(p => p.LastSell).First(),
+                        // Суммируем общее количество проданного по группе
+                        TotalQuantitySold = g.Sum(p => p.QuantitySold)
+                    })
+                    // Фильтруем группы: включаем только если остаток в последней продаже равен 0
+                    .Where(x => x.LatestSale.Residue == 0)
+                    .Select(x => new ProductInfo
+                    {
+                        Name = x.LatestSale.Name,
+                        Category = x.LatestSale.Category,
+                        Price = x.LatestSale.Price,
+                        QuantitySold = x.TotalQuantitySold,
+                        // Остаток берем из записи с самой поздней датой продажи (ожидается, что он равен 0)
+                        Residue = x.LatestSale.Residue,
+                        LastSell = x.LatestSale.LastSell
+                    })
+                    .ToList();
+
+                return new BindingList<ProductInfo>(groupedProducts);
+            }
+            catch (Exception ex)
+            {
+                // Возвращаем пустой список
                 return new BindingList<ProductInfo>();
             }
-
-           
-            var groupedProducts = AllSales_
-                .GroupBy(p => new { p.Name, p.Category })
-                .Where(g => g.Any(p => p.Residue == 0))
-                .Select(g => new ProductInfo
-                {
-                    Name = g.Key.Name,
-                    Category = g.Key.Category,
-                    Price = g.First().Price,
-                    QuantitySold = g.Sum(p => p.QuantitySold),
-                    Residue = 0,
-                    LastSell = g.Max(p => p.LastSell)
-                })
-                .ToList();
-
-            return new BindingList<ProductInfo>(groupedProducts);
         }
 
-        public BindingList<ProductInfo> FindSeasonalProducts(BindingList<ProductInfo> data, decimal percentageThreshold)
+        public void AddAllSales()
         {
-            //Создаем новый BindingList для хранения результатов
-            BindingList<ProductInfo> resultList = new BindingList<ProductInfo>();
+            AllSales_.Add(new ProductInfo("Чайник электрический Bosch", "Бытовая техника", 18.75m, 9, 2, new DateTime(2025, 01, 25))); // Январь
+            AllSales_.Add(new ProductInfo("Чайник электрический Bosch", "Бытовая техника", 18.75m, 7, 5, new DateTime(2025, 02, 14))); // Февраль
+            AllSales_.Add(new ProductInfo("Чайник электрический Bosch", "Бытовая техника", 18.75m, 5, 3, new DateTime(2025, 03, 08))); // Март
+            AllSales_.Add(new ProductInfo("Чайник электрический Bosch", "Бытовая техника", 18.75m, 3, 1, new DateTime(2025, 03, 22))); // Март
+            AllSales_.Add(new ProductInfo("Чайник электрический Bosch", "Бытовая техника", 18.75m, 6, 2, new DateTime(2025, 04, 15))); // Апрель (две одинаковые даты)
+            AllSales_.Add(new ProductInfo("Чайник электрический Bosch", "Бытовая техника", 18.75m, 4, 0, new DateTime(2025, 04, 15))); // Апрель
+            AllSales_.Add(new ProductInfo("Чайник электрический Bosch", "Бытовая техника", 18.75m, 8, 4, new DateTime(2025, 05, 10))); // Май
+            AllSales_.Add(new ProductInfo("Чайник электрический Bosch", "Бытовая техника", 18.75m, 5, 2, new DateTime(2025, 06, 10))); // Июнь (три одинаковые даты)
+            AllSales_.Add(new ProductInfo("Чайник электрический Bosch", "Бытовая техника", 18.75m, 3, 1, new DateTime(2025, 06, 10))); // Июнь
+            AllSales_.Add(new ProductInfo("Чайник электрический Bosch", "Бытовая техника", 18.75m, 2, 0, new DateTime(2025, 06, 10))); // Июнь
+            AllSales_.Add(new ProductInfo("Чайник электрический Bosch", "Бытовая техника", 18.75m, 7, 3, new DateTime(2025, 07, 18))); // Июль
+            AllSales_.Add(new ProductInfo("Чайник электрический Bosch", "Бытовая техника", 18.75m, 4, 1, new DateTime(2025, 08, 05))); // Август
+            AllSales_.Add(new ProductInfo("Чайник электрический Bosch", "Бытовая техника", 18.75m, 3, 0, new DateTime(2025, 08, 19))); // Август
+            AllSales_.Add(new ProductInfo("Чайник электрический Bosch", "Бытовая техника", 18.75m, 6, 2, new DateTime(2025, 09, 05))); // Сентябрь (две одинаковые даты)
+            AllSales_.Add(new ProductInfo("Чайник электрический Bosch", "Бытовая техника", 18.75m, 4, 1, new DateTime(2025, 09, 05))); // Сентябрь
+            AllSales_.Add(new ProductInfo("Чайник электрический Bosch", "Бытовая техника", 18.75m, 5, 3, new DateTime(2025, 10, 12))); // Октябрь
+            AllSales_.Add(new ProductInfo("Чайник электрический Bosch", "Бытовая техника", 18.75m, 3, 1, new DateTime(2025, 11, 08))); // Ноябрь
+            AllSales_.Add(new ProductInfo("Чайник электрический Bosch", "Бытовая техника", 18.75m, 2, 0, new DateTime(2025, 11, 22))); // Ноябрь
+            AllSales_.Add(new ProductInfo("Чайник электрический Bosch", "Бытовая техника", 18.75m, 8, 4, new DateTime(2025, 12, 15))); // Декабрь (три одинаковые даты)
+            AllSales_.Add(new ProductInfo("Чайник электрический Bosch", "Бытовая техника", 18.75m, 5, 2, new DateTime(2025, 12, 15))); // Декабрь
+            AllSales_.Add(new ProductInfo("Чайник электрический Bosch", "Бытовая техника", 18.75m, 3, 1, new DateTime(2025, 12, 15))); // Декабрь
 
-            //Группируем данные по товару И месяцу и суммируем количество проданного товара
-            var groupedSales = data.GroupBy(p => new { p.Name, p.LastSell.Month })
-                                 .Select(g => new ProductInfo
-                                 {
-                                     Name = g.Key.Name,
-                                     Category = g.First().Category, //  Сохраняем Category
-                                     Price = g.First().Price,       //  Сохраняем Price
-                                     QuantitySold = g.Sum(p => p.QuantitySold),
-                                     Residue = g.First().Residue,   // Сохраняем Residue
-                                     LastSell = new DateTime(g.First().LastSell.Year, g.Key.Month, g.First().LastSell.Day)// Используем месяц для сравнения
-                                 })
-                                 .ToList();
+            AllSales_.Add(new ProductInfo("Кофемашина DeLonghi Magnifica", "Бытовая техника", 499.99m, 10, 5, new DateTime(2025, 01, 10)));
+            AllSales_.Add(new ProductInfo("Кофемашина DeLonghi Magnifica", "Бытовая техника", 499.99m, 3, 2, new DateTime(2025, 02, 15)));
+            AllSales_.Add(new ProductInfo("Кофемашина DeLonghi Magnifica", "Бытовая техника", 499.99m, 2, 0, new DateTime(2025, 02, 28))); // Остаток стал 0  
+            AllSales_.Add(new ProductInfo("Кофемашина DeLonghi Magnifica", "Бытовая техника", 499.99m, 0, 0, new DateTime(2025, 03, 05))); // Нет продаж, остаток 0  
+            AllSales_.Add(new ProductInfo("Кофемашина DeLonghi Magnifica", "Бытовая техника", 499.99m, 0, 0, new DateTime(2025, 04, 10))); // Нет продаж, остаток 0  
+            AllSales_.Add(new ProductInfo("Кофемашина DeLonghi Magnifica", "Бытовая техника", 499.99m, 0, 0, new DateTime(2025, 05, 15))); // Нет продаж, остаток 0  
+            AllSales_.Add(new ProductInfo("Кофемашина DeLonghi Magnifica", "Бытовая техника", 499.99m, 0, 0, new DateTime(2025, 06, 20))); // Нет продаж, остаток 0  
+            AllSales_.Add(new ProductInfo("Кофемашина DeLonghi Magnifica", "Бытовая техника", 499.99m, 0, 0, new DateTime(2025, 07, 25))); // Нет продаж, остаток 0  
+            AllSales_.Add(new ProductInfo("Кофемашина DeLonghi Magnifica", "Бытовая техника", 499.99m, 0, 0, new DateTime(2025, 08, 30))); // Нет продаж, остаток 0  
+            AllSales_.Add(new ProductInfo("Кофемашина DeLonghi Magnifica", "Бытовая техника", 499.99m, 0, 0, new DateTime(2025, 09, 05))); // Нет продаж, остаток 0  
+            AllSales_.Add(new ProductInfo("Кофемашина DeLonghi Magnifica", "Бытовая техника", 499.99m, 0, 0, new DateTime(2025, 10, 10))); // Нет продаж, остаток 0  
+            AllSales_.Add(new ProductInfo("Кофемашина DeLonghi Magnifica", "Бытовая техника", 499.99m, 0, 0, new DateTime(2025, 11, 15))); // Нет продаж, остаток 0  
+            AllSales_.Add(new ProductInfo("Кофемашина DeLonghi Magnifica", "Бытовая техника", 499.99m, 0, 0, new DateTime(2025, 12, 20))); // Нет продаж, остаток 0  
 
-            //Определяем сезонность на основе просуммированных данных
-            foreach (var product in groupedSales)
-            {
-                var monthlySales = groupedSales.Where(p => p.Name == product.Name).ToList();  // Фильтруем только текущий товар
-                if (monthlySales.Count <= 1) continue; // Если только один месяц, пропускаем
+            AllSales_.Add(new ProductInfo("Samsung Galaxy S24", "Электроника", 1099.99m, 8, 5, new DateTime(2025, 01, 10)));
+            AllSales_.Add(new ProductInfo("Samsung Galaxy S24", "Электроника", 1099.99m, 5, 2, new DateTime(2025, 02, 15)));
+            AllSales_.Add(new ProductInfo("Samsung Galaxy S24", "Электроника", 1099.99m, 2, 0, new DateTime(2025, 03, 05)));
+            AllSales_.Add(new ProductInfo("Samsung Galaxy S24", "Электроника", 1099.99m, 0, 0, new DateTime(2025, 04, 12)));
+            AllSales_.Add(new ProductInfo("Samsung Galaxy S24", "Электроника", 1099.99m, 0, 0, new DateTime(2025, 05, 18)));
 
-                decimal averageSalesExcludingCurrentMonth;
-                var otherMonthsSales = monthlySales.Where(ms => ms.LastSell.Month != product.LastSell.Month);
+            AllSales_.Add(new ProductInfo("Roborock S8", "Бытовая техника", 699.99m, 6, 4, new DateTime(2025, 01, 05)));
+            AllSales_.Add(new ProductInfo("Roborock S8", "Бытовая техника", 699.99m, 4, 1, new DateTime(2025, 02, 10)));
+            AllSales_.Add(new ProductInfo("Roborock S8", "Бытовая техника", 699.99m, 1, 0, new DateTime(2025, 03, 15)));
+            AllSales_.Add(new ProductInfo("Roborock S8", "Бытовая техника", 699.99m, 0, 0, new DateTime(2025, 04, 20)));
+            AllSales_.Add(new ProductInfo("Roborock S8", "Бытовая техника", 699.99m, 0, 0, new DateTime(2025, 05, 25)));
+            AllSales_.Add(new ProductInfo("Roborock S8", "Бытовая техника", 699.99m, 0, 0, new DateTime(2025, 06, 30)));
 
-                if (otherMonthsSales.Any())
-                {
-                    averageSalesExcludingCurrentMonth = (decimal)otherMonthsSales.Average(ms => ms.QuantitySold);
-                }
-                else
-                {
-                    averageSalesExcludingCurrentMonth = 0;
-                }
+            AllSales_.Add(new ProductInfo("Xiaomi Himo", "Транспорт", 1299.99m, 3, 2, new DateTime(2025, 01, 15)));
+            AllSales_.Add(new ProductInfo("Xiaomi Himo", "Транспорт", 1299.99m, 2, 0, new DateTime(2025, 02, 20)));
+            AllSales_.Add(new ProductInfo("Xiaomi Himo", "Транспорт", 1299.99m, 0, 0, new DateTime(2025, 03, 10)));
+            AllSales_.Add(new ProductInfo("Xiaomi Himo", "Транспорт", 1299.99m, 0, 0, new DateTime(2025, 04, 15)));
+            AllSales_.Add(new ProductInfo("Xiaomi Himo", "Транспорт", 1299.99m, 0, 0, new DateTime(2025, 05, 20)));
 
-                decimal percentageIncrease = ((decimal)product.QuantitySold - averageSalesExcludingCurrentMonth) / averageSalesExcludingCurrentMonth * 100m;
+            AllSales_.Add(new ProductInfo("Razer Viper", "Компьютерные аксессуары", 89.99m, 12, 8, new DateTime(2025, 01, 08)));
+            AllSales_.Add(new ProductInfo("Razer Viper", "Компьютерные аксессуары", 89.99m, 8, 3, new DateTime(2025, 02, 12)));
+            AllSales_.Add(new ProductInfo("Razer Viper", "Компьютерные аксессуары", 89.99m, 3, 0, new DateTime(2025, 03, 18)));
+            AllSales_.Add(new ProductInfo("Razer Viper", "Компьютерные аксессуары", 89.99m, 0, 0, new DateTime(2025, 04, 22)));
+            AllSales_.Add(new ProductInfo("Razer Viper", "Компьютерные аксессуары", 89.99m, 0, 0, new DateTime(2025, 05, 28)));
+            AllSales_.Add(new ProductInfo("Razer Viper", "Компьютерные аксессуары", 89.99m, 0, 0, new DateTime(2025, 06, 30)));
 
-                if (percentageIncrease > percentageThreshold)
-                {
-                    resultList.Add(product);
-                }
-            }
+            AllSales_.Add(new ProductInfo("Nest Thermostat", "Умный дом", 249.99m, 7, 5, new DateTime(2025, 01, 12)));
+            AllSales_.Add(new ProductInfo("Nest Thermostat", "Умный дом", 249.99m, 5, 2, new DateTime(2025, 02, 18)));
+            AllSales_.Add(new ProductInfo("Nest Thermostat", "Умный дом", 249.99m, 2, 0, new DateTime(2025, 03, 22)));
+            AllSales_.Add(new ProductInfo("Nest Thermostat", "Умный дом", 249.99m, 0, 0, new DateTime(2025, 04, 28)));
+            AllSales_.Add(new ProductInfo("Nest Thermostat", "Умный дом", 249.99m, 0, 0, new DateTime(2025, 05, 30)));
 
-            //Убираем дубликаты.
-            var distinctProducts = resultList.GroupBy(p => p.Name)
-                                             .Select(g => g.OrderByDescending(p => p.QuantitySold).First())
-                                             .ToList();
+            AllSales_.Add(new ProductInfo("Epson Home Cinema", "Техника для дома", 899.99m, 4, 3, new DateTime(2025, 01, 20)));
+            AllSales_.Add(new ProductInfo("Epson Home Cinema", "Техника для дома", 899.99m, 3, 1, new DateTime(2025, 02, 25)));
+            AllSales_.Add(new ProductInfo("Epson Home Cinema", "Техника для дома", 899.99m, 1, 0, new DateTime(2025, 03, 05)));
+            AllSales_.Add(new ProductInfo("Epson Home Cinema", "Техника для дома", 899.99m, 0, 0, new DateTime(2025, 04, 10)));
+            AllSales_.Add(new ProductInfo("Epson Home Cinema", "Техника для дома", 899.99m, 0, 0, new DateTime(2025, 05, 15)));
+            AllSales_.Add(new ProductInfo("Epson Home Cinema", "Техника для дома", 899.99m, 0, 0, new DateTime(2025, 06, 20)));
 
-            resultList = new BindingList<ProductInfo>(distinctProducts);
-            return resultList;
-        }
+            AllSales_.Add(new ProductInfo("PocketBook", "Гаджеты", 149.99m, 10, 7, new DateTime(2025, 01, 07)));
+            AllSales_.Add(new ProductInfo("PocketBook", "Гаджеты", 149.99m, 7, 3, new DateTime(2025, 02, 14)));
+            AllSales_.Add(new ProductInfo("PocketBook", "Гаджеты", 149.99m, 3, 0, new DateTime(2025, 03, 21)));
+            AllSales_.Add(new ProductInfo("PocketBook", "Гаджеты", 149.99m, 0, 0, new DateTime(2025, 04, 28)));
+            AllSales_.Add(new ProductInfo("PocketBook", "Гаджеты", 149.99m, 0, 0, new DateTime(2025, 05, 05)));
 
-        public BindingList<ProductInfo> FindTrendingProducts(BindingList<ProductInfo> data, int trendingWeeks)
-        {
-            BindingList<ProductInfo> trendingProducts = new BindingList<ProductInfo>();
-            DateTime today = DateTime.Today;
+            AllSales_.Add(new ProductInfo("Krups Espresso", "Бытовая техника", 399.99m, 5, 4, new DateTime(2025, 01, 11)));
+            AllSales_.Add(new ProductInfo("Krups Espresso", "Бытовая техника", 399.99m, 4, 1, new DateTime(2025, 02, 19)));
+            AllSales_.Add(new ProductInfo("Krups Espresso", "Бытовая техника", 399.99m, 1, 0, new DateTime(2025, 03, 27)));
+            AllSales_.Add(new ProductInfo("Krups Espresso", "Бытовая техника", 399.99m, 0, 0, new DateTime(2025, 04, 03)));
+            AllSales_.Add(new ProductInfo("Krups Espresso", "Бытовая техника", 399.99m, 0, 0, new DateTime(2025, 05, 11)));
 
-            // Определяем дату начала периода анализа
-            DateTime startDate = today.AddDays(-(trendingWeeks * 7));
-            int daysToSubtract = trendingWeeks * 7; // Сделаем число положительным
-            startDate = today.AddDays(-daysToSubtract);
+            AllSales_.Add(new ProductInfo("Huawei Band 8", "Гаджеты", 59.99m, 15, 10, new DateTime(2025, 01, 06)));
+            AllSales_.Add(new ProductInfo("Huawei Band 8", "Гаджеты", 59.99m, 10, 4, new DateTime(2025, 02, 13)));
+            AllSales_.Add(new ProductInfo("Huawei Band 8", "Гаджеты", 59.99m, 4, 0, new DateTime(2025, 03, 20)));
+            AllSales_.Add(new ProductInfo("Huawei Band 8", "Гаджеты", 59.99m, 0, 0, new DateTime(2025, 04, 27)));
+            AllSales_.Add(new ProductInfo("Huawei Band 8", "Гаджеты", 59.99m, 0, 0, new DateTime(2025, 05, 04)));
+            AllSales_.Add(new ProductInfo("Huawei Band 8", "Гаджеты", 59.99m, 0, 0, new DateTime(2025, 06, 11)));
 
-            // Определяем дату начала предыдущего периода
-            DateTime previousEndDate = startDate.AddDays(-1);
-            previousEndDate = previousEndDate.Date;
+            AllSales_.Add(new ProductInfo("OnePlus 12", "Электроника", 899.99m, 15, 12, new DateTime(2025, 01, 05)));
+            AllSales_.Add(new ProductInfo("OnePlus 12", "Электроника", 899.99m, 12, 9, new DateTime(2025, 01, 15)));
+            AllSales_.Add(new ProductInfo("OnePlus 12", "Электроника", 899.99m, 9, 7, new DateTime(2025, 01, 25)));
+            AllSales_.Add(new ProductInfo("OnePlus 12", "Электроника", 899.99m, 7, 5, new DateTime(2025, 02, 05)));
+            AllSales_.Add(new ProductInfo("OnePlus 12", "Электроника", 899.99m, 5, 3, new DateTime(2025, 02, 15)));
+            AllSales_.Add(new ProductInfo("OnePlus 12", "Электроника", 899.99m, 3, 2, new DateTime(2025, 02, 25)));
+            AllSales_.Add(new ProductInfo("OnePlus 12", "Электроника", 899.99m, 2, 1, new DateTime(2025, 03, 05)));
+            AllSales_.Add(new ProductInfo("OnePlus 12", "Электроника", 899.99m, 1, 1, new DateTime(2025, 03, 15)));
+            AllSales_.Add(new ProductInfo("OnePlus 12", "Электроника", 899.99m, 1, 0, new DateTime(2025, 03, 25)));
+            AllSales_.Add(new ProductInfo("OnePlus 12", "Электроника", 899.99m, 0, 0, new DateTime(2025, 04, 05)));
+            AllSales_.Add(new ProductInfo("OnePlus 12", "Электроника", 899.99m, 0, 0, new DateTime(2025, 04, 15)));
+            AllSales_.Add(new ProductInfo("OnePlus 12", "Электроника", 899.99m, 0, 0, new DateTime(2025, 04, 25)));
 
-            DateTime previousStartDate = previousEndDate.AddDays(-(trendingWeeks * 7) + 1);
-            previousStartDate = previousStartDate.Date;
+            AllSales_.Add(new ProductInfo("iRobot j7+", "Бытовая техника", 799.99m, 10, 8, new DateTime(2025, 01, 10)));
+            AllSales_.Add(new ProductInfo("iRobot j7+", "Бытовая техника", 799.99m, 8, 6, new DateTime(2025, 01, 20)));
+            AllSales_.Add(new ProductInfo("iRobot j7+", "Бытовая техника", 799.99m, 6, 5, new DateTime(2025, 02, 01)));
+            AllSales_.Add(new ProductInfo("iRobot j7+", "Бытовая техника", 799.99m, 5, 4, new DateTime(2025, 02, 10)));
+            AllSales_.Add(new ProductInfo("iRobot j7+", "Бытовая техника", 799.99m, 4, 3, new DateTime(2025, 02, 20)));
+            AllSales_.Add(new ProductInfo("iRobot j7+", "Бытовая техника", 799.99m, 3, 2, new DateTime(2025, 03, 01)));
+            AllSales_.Add(new ProductInfo("iRobot j7+", "Бытовая техника", 799.99m, 2, 1, new DateTime(2025, 03, 10)));
+            AllSales_.Add(new ProductInfo("iRobot j7+", "Бытовая техника", 799.99m, 1, 1, new DateTime(2025, 03, 20)));
+            AllSales_.Add(new ProductInfo("iRobot j7+", "Бытовая техника", 799.99m, 1, 0, new DateTime(2025, 04, 01)));
+            AllSales_.Add(new ProductInfo("iRobot j7+", "Бытовая техника", 799.99m, 0, 0, new DateTime(2025, 04, 10)));
+            AllSales_.Add(new ProductInfo("iRobot j7+", "Бытовая техника", 799.99m, 0, 0, new DateTime(2025, 04, 20)));
+            AllSales_.Add(new ProductInfo("iRobot j7+", "Бытовая техника", 799.99m, 0, 3, new DateTime(2025, 05, 01)));
 
-            // Группируем продажи по названию продукта
-            var groupedProducts = data.GroupBy(p => p.Name);
+            AllSales_.Add(new ProductInfo("Segway Ninebot", "Транспорт", 1499.99m, 8, 7, new DateTime(2025, 01, 07)));
+            AllSales_.Add(new ProductInfo("Segway Ninebot", "Транспорт", 1499.99m, 7, 6, new DateTime(2025, 01, 17)));
+            AllSales_.Add(new ProductInfo("Segway Ninebot", "Транспорт", 1499.99m, 6, 5, new DateTime(2025, 01, 27)));
+            AllSales_.Add(new ProductInfo("Segway Ninebot", "Транспорт", 1499.99m, 5, 4, new DateTime(2025, 02, 07)));
+            AllSales_.Add(new ProductInfo("Segway Ninebot", "Транспорт", 1499.99m, 4, 3, new DateTime(2025, 02, 17)));
+            AllSales_.Add(new ProductInfo("Segway Ninebot", "Транспорт", 1499.99m, 3, 2, new DateTime(2025, 02, 27)));
+            AllSales_.Add(new ProductInfo("Segway Ninebot", "Транспорт", 1499.99m, 2, 1, new DateTime(2025, 03, 07)));
+            AllSales_.Add(new ProductInfo("Segway Ninebot", "Транспорт", 1499.99m, 1, 1, new DateTime(2025, 03, 17)));
+            AllSales_.Add(new ProductInfo("Segway Ninebot", "Транспорт", 1499.99m, 1, 0, new DateTime(2025, 03, 27)));
+            AllSales_.Add(new ProductInfo("Segway Ninebot", "Транспорт", 1499.99m, 0, 0, new DateTime(2025, 04, 07)));
+            AllSales_.Add(new ProductInfo("Segway Ninebot", "Транспорт", 1499.99m, 0, 0, new DateTime(2025, 04, 17)));
+            AllSales_.Add(new ProductInfo("Segway Ninebot", "Транспорт", 1499.99m, 0, 10, new DateTime(2025, 04, 27)));
 
-            foreach (var productGroup in groupedProducts)
-            {
-                string productName = productGroup.Key;
 
-                // Вычисляем общую сумму продаж за последние trendingWeeks недель
-                int currentPeriodSales = productGroup
-                    .Where(p => p.LastSell.Date > startDate.AddDays(-1))
-                    .Sum(p => p.QuantitySold);
-
-                // Вычисляем общую сумму продаж за предыдущие trendingWeeks недель
-                int previousPeriodSales = productGroup
-                    .Where(p => p.LastSell.Date >= previousStartDate && p.LastSell.Date <= previousEndDate)
-                    .Sum(p => p.QuantitySold);
-
-                // Проверяем, были ли продажи за предыдущий период
-                if (previousPeriodSales > 0)
-                {
-                    //Проверяем, во сколько раз выросли продажи (должно быть 2 или больше)
-                    decimal salesIncreaseFactor = (decimal)currentPeriodSales / previousPeriodSales;
-
-                    //Если продажи выросли в 2 и более раз, добавляем продукт
-                    if (salesIncreaseFactor >= 2)
-                    {
-                        // Берем самую последнюю продажу товара
-                        ProductInfo latestProduct = productGroup.OrderByDescending(p => p.LastSell).FirstOrDefault();
-                        if (latestProduct != null)
-                        {
-                            trendingProducts.Add(latestProduct);
-                        }
-                    }
-                }
-            }
-
-            return trendingProducts;
         }
 
     }
-    
 }
     
 
