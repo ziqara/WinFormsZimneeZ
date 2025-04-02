@@ -41,13 +41,13 @@
             this.файлToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.LoadToolStrip = new System.Windows.Forms.ToolStripMenuItem();
             this.SaveToolStrip = new System.Windows.Forms.ToolStripMenuItem();
+            this.TurnList = new System.Windows.Forms.ToolStripMenuItem();
             this.rdtToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.MenuFiltr = new System.Windows.Forms.ToolStrip();
             this.DefStripButton = new System.Windows.Forms.ToolStripButton();
             this.TopStripButton = new System.Windows.Forms.ToolStripButton();
             this.reloaded = new System.Windows.Forms.ToolTip(this.components);
             this.picDOWN = new System.Windows.Forms.PictureBox();
-            this.TurnList = new System.Windows.Forms.ToolStripMenuItem();
             ((System.ComponentModel.ISupportInitialize)(this.ProductTable)).BeginInit();
             this.FolderMenu.SuspendLayout();
             this.MenuFiltr.SuspendLayout();
@@ -167,6 +167,15 @@
             this.SaveToolStrip.ToolTipText = "HTML";
             this.SaveToolStrip.Click += new System.EventHandler(this.SaveToolStrip_Click);
             // 
+            // TurnList
+            // 
+            this.TurnList.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Bold);
+            this.TurnList.Image = ((System.Drawing.Image)(resources.GetObject("TurnList.Image")));
+            this.TurnList.Name = "TurnList";
+            this.TurnList.Size = new System.Drawing.Size(108, 21);
+            this.TurnList.Text = "Развернуть";
+            this.TurnList.Click += new System.EventHandler(this.TurnList_Click);
+            // 
             // rdtToolStripMenuItem
             // 
             this.rdtToolStripMenuItem.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Bold);
@@ -232,15 +241,6 @@
             this.picDOWN.TabIndex = 17;
             this.picDOWN.TabStop = false;
             this.picDOWN.Visible = false;
-            // 
-            // TurnList
-            // 
-            this.TurnList.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Bold);
-            this.TurnList.Image = ((System.Drawing.Image)(resources.GetObject("TurnList.Image")));
-            this.TurnList.Name = "TurnList";
-            this.TurnList.Size = new System.Drawing.Size(108, 21);
-            this.TurnList.Text = "Развернуть";
-            this.TurnList.Click += new System.EventHandler(this.TurnList_Click);
             // 
             // MainForm
             // 

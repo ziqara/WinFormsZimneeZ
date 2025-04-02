@@ -60,6 +60,12 @@
     <Compile Include="SeasonForm.Designer.cs">
       <DependentUpon>SeasonForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="TrendForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="TrendForm.Designer.cs">
+      <DependentUpon>TrendForm.cs</DependentUpon>
+    </Compile>
     <EmbeddedResource Include="MainForm.resx">
       <DependentUpon>MainForm.cs</DependentUpon>
     </EmbeddedResource>
@@ -74,6 +80,9 @@
     </Compile>
     <EmbeddedResource Include="SeasonForm.resx">
       <DependentUpon>SeasonForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="TrendForm.resx">
+      <DependentUpon>TrendForm.cs</DependentUpon>
     </EmbeddedResource>
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
