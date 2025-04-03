@@ -113,7 +113,7 @@
             // 
             // TrendButton
             // 
-            this.TrendButton.Cursor = System.Windows.Forms.Cursors.No;
+            this.TrendButton.Cursor = System.Windows.Forms.Cursors.Hand;
             this.TrendButton.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Bold);
             this.TrendButton.Location = new System.Drawing.Point(48, 165);
             this.TrendButton.Name = "TrendButton";

@@ -25,6 +25,7 @@ namespace WinFormsZimneeZ
 
         private void InitializeStyles()
         {
+
             ProductTable.ColumnHeadersDefaultCellStyle.Font = new Font("Segoe UI", 9.75f, FontStyle.Bold);
             MenuFiltr.BackColor = ColorTranslator.FromHtml("#0d1b2a");
             DefStripButton.ForeColor = ColorTranslator.FromHtml("#778da9");
@@ -47,8 +48,6 @@ namespace WinFormsZimneeZ
             ProductTable.BackgroundColor = ColorTranslator.FromHtml("#0d1b2a");
             this.BackColor = ColorTranslator.FromHtml("#0d1b2a");
 
-            //picDOWN.Image = Image.FromFile("vip.gif");
-            picDOWN.SizeMode = PictureBoxSizeMode.StretchImage;
         }
 
         private void MainForn_Load(object sender, EventArgs e)

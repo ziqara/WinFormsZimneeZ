@@ -4,6 +4,7 @@ using System.ComponentModel;
 using System.Drawing;
 using System.Linq;
 using System.Windows.Forms;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 
 namespace WinFormsZimneeZ
 {
@@ -19,17 +20,20 @@ namespace WinFormsZimneeZ
             History = history;
             // Получаем сезонные данные и сразу группируем их
             _allSeasonData = History.GroupProducts(History.GetSeasonSales());
-            // Отображаем все данные (без фильтрации по порогу)
-            SeasonTable.DataSource = _allSeasonData;
+            SeasonTable.DataSource  = _allSeasonData;
         }
 
         private void InitializeStyles()
         {
-            //pictureBox1.Image = Image.FromFile("MB.png");
-            pictureBox1.SizeMode = PictureBoxSizeMode.StretchImage;
+            monthComboBox.BackColor = ColorTranslator.FromHtml("#778da9");
+            monthComboBox.ForeColor = ColorTranslator.FromHtml("#0d1b2a");
+            monthComboBox.FlatStyle = FlatStyle.Flat;
+            monthComboBox.Font = new Font("Segoe UI", 9.75f, FontStyle.Bold);
+
             SeasonTable.ColumnHeadersDefaultCellStyle.Font = new Font("Segoe UI", 9.75f, FontStyle.Bold);
 
             label1.ForeColor = ColorTranslator.FromHtml("#778da9");
+            label2.ForeColor = ColorTranslator.FromHtml("#778da9");
             SeasonBox.BackColor = ColorTranslator.FromHtml("#778da9");
             SeasonBox.ForeColor = ColorTranslator.FromHtml("#0d1b2a");
 
@@ -44,6 +48,12 @@ namespace WinFormsZimneeZ
             BackButt.ForeColor = ColorTranslator.FromHtml("#778da9");
             BackButt.FlatAppearance.BorderColor = Color.White;
             BackButt.FlatAppearance.BorderSize = 1;
+
+            resetbutton.BackColor = ColorTranslator.FromHtml("#1b263b");
+            resetbutton.FlatStyle = FlatStyle.Flat;
+            resetbutton.ForeColor = ColorTranslator.FromHtml("#778da9");
+            resetbutton.FlatAppearance.BorderColor = Color.White;
+            resetbutton.FlatAppearance.BorderSize = 1;
 
             FilterSeason.BackColor = ColorTranslator.FromHtml("#1b263b");
             FilterSeason.FlatStyle = FlatStyle.Flat;
@@ -171,17 +181,20 @@ namespace WinFormsZimneeZ
             else if (thresholdProvided)
             {
                 filteredData = History.FilterSeasonProductsByThreshold(_allSeasonData, threshold);
+                
             }
             // Если ни один критерий не задан – отображаем все данные.
             else
             {
                 filteredData = _allSeasonData;
+                
             }
 
             // Если после фильтрации данных не найдено, можно вывести сообщение.
             if (filteredData == null || filteredData.Count == 0)
             {
                 MessageBox.Show("Нет товаров, удовлетворяющих заданным критериям.", "Информация", MessageBoxButtons.OK);
+                
             }
 
             SeasonTable.DataSource = filteredData;
@@ -211,6 +224,19 @@ namespace WinFormsZimneeZ
 
         private void SeasonForm_Load(object sender, EventArgs e)
         {
+            SetDataGridStyles();
+        }
+
+        private void resetbutton_Click(object sender, EventArgs e)
+        {
+            SeasonTable.DataSource = History.GroupProducts(History.GetSeasonSales());
+
+            // Сброс ComboBox
+            monthComboBox.SelectedIndex = -1;
+            monthComboBox.Text = string.Empty;
+
+            // Сброс TextBox
+            SeasonBox.Clear();
             SetDataGridStyles();
         }
     }
