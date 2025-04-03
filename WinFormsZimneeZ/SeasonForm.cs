@@ -25,7 +25,7 @@ namespace WinFormsZimneeZ
 
         private void InitializeStyles()
         {
-            pictureBox1.Image = Image.FromFile("MB.png");
+            //pictureBox1.Image = Image.FromFile("MB.png");
             pictureBox1.SizeMode = PictureBoxSizeMode.StretchImage;
             SeasonTable.ColumnHeadersDefaultCellStyle.Font = new Font("Segoe UI", 9.75f, FontStyle.Bold);
 

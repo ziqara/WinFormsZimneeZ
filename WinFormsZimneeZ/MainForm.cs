@@ -47,7 +47,7 @@ namespace WinFormsZimneeZ
             ProductTable.BackgroundColor = ColorTranslator.FromHtml("#0d1b2a");
             this.BackColor = ColorTranslator.FromHtml("#0d1b2a");
 
-            picDOWN.Image = Image.FromFile("vip.gif");
+            //picDOWN.Image = Image.FromFile("vip.gif");
             picDOWN.SizeMode = PictureBoxSizeMode.StretchImage;
         }
 

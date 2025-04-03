@@ -21,13 +21,10 @@ namespace MyLib
         {
             BindingList<TrendingProduct> trendingProducts = new BindingList<TrendingProduct>();
 
-            // Текущий период: от referenceDate - trendingWeeks*7 до referenceDate
             DateTime currentPeriodStart = referenceDate.AddDays(-trendingWeeks * 7);
-            // Предыдущий период: аналогичный интервал непосредственно перед текущим периодом
             DateTime previousPeriodEnd = currentPeriodStart.AddDays(-1);
             DateTime previousPeriodStart = previousPeriodEnd.AddDays(-trendingWeeks * 7 + 1);
 
-            // Группируем продажи по имени товара
             var groupedProducts = AllSales_.GroupBy(p => p.Name);
             foreach (var group in groupedProducts)
             {
@@ -38,26 +35,25 @@ namespace MyLib
                     .Where(p => p.LastSell.Date >= previousPeriodStart && p.LastSell.Date <= previousPeriodEnd)
                     .Sum(p => p.QuantitySold);
 
-                // Если за предыдущий период были продажи и продажи в текущем периоде в 2 и более раза больше
                 if (previousSales > 0 && ((double)currentSales / previousSales) >= 2)
                 {
-                    double factor = Math.Round((double)currentSales / previousSales, 2);
-                    // Берём данные последней продажи (для категории, цены и даты, если требуется)
+                    // Исправленный расчет фактора
+                    double factor = (double)currentSales / (double)previousSales;
+                    factor = Math.Round(factor, 2); // Округляем до 2 знаков после запятой
+
                     ProductInfo latestProduct = group.OrderByDescending(p => p.LastSell).FirstOrDefault();
                     if (latestProduct != null)
                     {
-                        TrendingProduct tp = new TrendingProduct
+                        trendingProducts.Add(new TrendingProduct
                         {
                             Name = latestProduct.Name,
                             Category = latestProduct.Category,
                             Price = latestProduct.Price,
                             IncreaseFactor = factor
-                        };
-                        trendingProducts.Add(tp);
+                        });
                     }
                 }
             }
-
             return trendingProducts;
         }
 
@@ -99,7 +95,7 @@ namespace MyLib
         // Формирование сезонных данных.
         // Группировка происходит по имени товара.
         // Для каждого товара вычисляется процентное распределение продаж по месяцам.
-        public BindingList<SeasonProductInfo> GetSeasonSales()
+        public BindingList<SeasonProductInfo> GetSeasonSales()//
         {
             var seasonSales = AllSales_
                  .GroupBy(sale => sale.Name)
