@@ -154,7 +154,7 @@
             // LoadToolStrip
             // 
             this.LoadToolStrip.Name = "LoadToolStrip";
-            this.LoadToolStrip.Size = new System.Drawing.Size(143, 22);
+            this.LoadToolStrip.Size = new System.Drawing.Size(180, 22);
             this.LoadToolStrip.Text = "Загрузить";
             this.LoadToolStrip.ToolTipText = "CSV";
             this.LoadToolStrip.Click += new System.EventHandler(this.LoadToolStrip_Click);
@@ -162,7 +162,7 @@
             // SaveToolStrip
             // 
             this.SaveToolStrip.Name = "SaveToolStrip";
-            this.SaveToolStrip.Size = new System.Drawing.Size(143, 22);
+            this.SaveToolStrip.Size = new System.Drawing.Size(180, 22);
             this.SaveToolStrip.Text = "Сохранить";
             this.SaveToolStrip.ToolTipText = "HTML";
             this.SaveToolStrip.Click += new System.EventHandler(this.SaveToolStrip_Click);

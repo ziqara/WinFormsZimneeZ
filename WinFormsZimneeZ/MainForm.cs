@@ -23,6 +23,7 @@ namespace WinFormsZimneeZ
             InitializeStyles();
         }
 
+
         private void InitializeStyles()
         {
 
@@ -125,15 +126,22 @@ namespace WinFormsZimneeZ
                 Filter = "CSV Files (*.csv)|*.csv|All Files (*.*)|*.*",
                 Title = "Select a CSV File"
             };
+
             if (dlg.ShowDialog() == DialogResult.OK)
             {
                 try
                 {
-                    csvLoader.LoadCsvData(dlg.FileName, History);
+                    History = csvLoader.LoadCsvData(dlg.FileName, History);
+                    ProductTable.DataSource = History.GetGroupedProducts();
+                    InitializeStyles();
+                    SetDataGridStyles();
+                    MessageBox.Show("Данные успешно загружены", "Успех",
+                                  MessageBoxButtons.OK, MessageBoxIcon.Information);
                 }
                 catch (Exception ex)
                 {
-                    MessageBox.Show($"Ошибка: {ex.Message}", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    MessageBox.Show($"Ошибка: {ex.Message}", "Ошибка",
+                                  MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
             }
         }

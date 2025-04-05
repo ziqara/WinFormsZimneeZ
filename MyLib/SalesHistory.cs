@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
+using System.Security.Cryptography;
 
 namespace MyLib
 {
@@ -66,6 +67,11 @@ namespace MyLib
         public BindingList<ProductInfo> GetAllSales()
         {
             return AllSales_;
+        }
+
+        public void ClearSales()
+        {
+            AllSales_.Clear();
         }
 
         // Группировка товаров по наименованию, категории и цене.

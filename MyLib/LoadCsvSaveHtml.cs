@@ -14,13 +14,15 @@ namespace MyLib
 {
     public class LoadCsvSaveHtml
     {
-        public void LoadCsvData(string filePath, SalesHistory products)
+        public SalesHistory LoadCsvData(string filePath, SalesHistory products)
         {
             try
             {
+                products.ClearSales(); // Очищаем существующие данные
+
                 using (StreamReader reader = new StreamReader(filePath))
                 {
-                    reader.ReadLine();
+                    reader.ReadLine(); // Пропускаем заголовок
 
                     while (!reader.EndOfStream)
                     {
@@ -31,7 +33,6 @@ namespace MyLib
                         {
                             try
                             {
-
                                 string name = values[0];
                                 string category = values[1];
                                 decimal price = decimal.Parse(values[2], CultureInfo.InvariantCulture);
@@ -39,20 +40,12 @@ namespace MyLib
                                 int residue = int.Parse(values[4]);
                                 DateTime lastSell = DateTime.Parse(values[5]);
 
-
                                 ProductInfo product = new ProductInfo(name, category, price, quantitysold, residue, lastSell);
-
                                 products.AddSales(product);
-
-
                             }
                             catch (FormatException ex)
                             {
                                 throw new Exception($"Ошибка формата в строке: {line}. Ошибка: {ex.Message}");
-                            }
-                            catch (Exception ex)
-                            {
-                                throw new Exception($"Непредвиденная ошибка в строке: {line}. Ошибка: {ex.Message}");
                             }
                         }
                         else
@@ -61,6 +54,7 @@ namespace MyLib
                         }
                     }
                 }
+                return products;
             }
             catch (Exception ex)
             {

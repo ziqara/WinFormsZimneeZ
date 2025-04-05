@@ -9,17 +9,18 @@ namespace Testing
     [TestClass]
     public class TSalesHistory
     {
+        [TestInitialize]
 
         [TestMethod]
-        [DataRow(0, 0, 0, 0, 0, DisplayName = "Тест пустого списка продаж")]
+        [DataRow(0, 0, 0, 0, 0, DisplayName = "Тест пустого списка продаж")] // проверка задать массива продукт инфо
         [DataRow(1, 50, 1, 100, 0, DisplayName = "Тест продажи одного продукта в июне")]
         [DataRow(3, 20, 20, 30, 50, DisplayName = "Тест нескольких продуктов")]
         [DataRow(1, 1, 2, 33.33, 66.67, DisplayName = "Тест округления процентов")]
         [DataRow(4, 10, 10, 80, 10, DisplayName = "Тест группировки по имени продукта")]
-        public void TestGetSeasonSales(int productCount, double januaryGrowth, double februaryGrowth, double marchGrowth, double aprilGrowth)
+        public void TestGetSeasonSales(int productCount, double januaryGrowth, double februaryGrowth, double marchGrowth, double aprilGrowth) // в массив
         {
             // Arrange
-            var salesHistory = new SalesHistory();
+            var salesHistory = new SalesHistory(); // в тестиниц(заполнить данными (отдельная функцмя))
             
             // Добавление продаж
             if (productCount == 0)
