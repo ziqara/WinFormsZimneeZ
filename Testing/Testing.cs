@@ -12,6 +12,7 @@ namespace Testing
     {
         [TestMethod]
         public void TestFindTrendingProducts()
+        public void TestGetSeasonSales(int productCount, double januaryGrowth, double februaryGrowth, double marchGrowth, double aprilGrowth)
         {
             // Arrange
             var salesHistory = new SalesHistory();
