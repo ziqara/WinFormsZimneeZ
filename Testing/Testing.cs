@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Globalization;
 using System.Linq;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using MyLib;
@@ -11,16 +12,14 @@ namespace Testing
     public class TSalesHistory
     {
         private SalesHistory salesHistory;
-        private List<ProductInfo> testProducts;
-        private readonly List<List<ProductInfo>> _allTestCases = new List<List<ProductInfo>>();
+        // Тестовые случаи: каждая коллекция продаж для одного теста
+        private List<List<ProductInfo>> _allTestCases = new List<List<ProductInfo>>();
 
         [TestInitialize]
         public void TestInitialize()
         {
             salesHistory = new SalesHistory();
-            testProducts = new List<ProductInfo>();
 
-            // Инициализация всех тестовых случаев
             _allTestCases.Clear();
 
             // 0: Пустой список
@@ -32,7 +31,7 @@ namespace Testing
                 new ProductInfo { Name = "Product1", QuantitySold = 50, LastSell = new DateTime(2023, 6, 15) }
             });
 
-            // 2: Несколько продуктов
+            // 2: Несколько продаж одного продукта
             _allTestCases.Add(new List<ProductInfo>
             {
                 new ProductInfo { Name = "Product2", QuantitySold = 20, LastSell = new DateTime(2023, 1, 10) },
@@ -56,63 +55,61 @@ namespace Testing
             });
         }
 
-        private void SetupTestProducts(int testCaseIndex)
+        [DataTestMethod]
+        [DataRow(0, "Product1", "0,0,0,0,0,100,0,0,0,0,0,0", DisplayName = "Тест пустого списка продаж")]
+        [DataRow(1, "Product1", "0,0,0,0,0,100,0,0,0,0,0,0", DisplayName = "Тест продажи одного продукта в июне")]
+        [DataRow(2, "Product2", "20,80,0,0,0,0,0,0,0,0,0,0", DisplayName = "Тест нескольких продаж одного продукта")]
+        [DataRow(3, "Product3", "0,0,33.33,66.67,0,0,0,0,0,0,0,0", DisplayName = "Тест округления процентов")]
+        [DataRow(4, "Product4", "0,0,0,0,10,10,80,0,0,0,0,0", DisplayName = "Тест группировки по имени продукта")]
+        public void TestGetSeasonSales(int testCaseIndex, string expectedName, string expectedGrowthCsv)
         {
-            testProducts.Clear();
+            // Arrange: создаём новый экземпляр SalesHistory и добавляем данные из тестового случая
             salesHistory = new SalesHistory();
-
-            if (testCaseIndex >= 0 && testCaseIndex < _allTestCases.Count)
-            {
-                testProducts.AddRange(_allTestCases[testCaseIndex]);
-            }
-
-            foreach (var product in testProducts)
+            foreach (var product in _allTestCases[testCaseIndex])
             {
                 salesHistory.AddSales(product);
             }
-        }
 
-        [TestMethod]
-        [DataRow(0, new double[] { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 }, DisplayName = "Тест пустого списка продаж")]
-        [DataRow(1, new double[] { 0, 0, 0, 0, 0, 100, 0, 0, 0, 0, 0, 0 }, DisplayName = "Тест продажи одного продукта в июне")]
-        [DataRow(2, new double[] { 20, 80, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 }, DisplayName = "Тест нескольких продуктов")]
-        [DataRow(3, new double[] { 0, 0, 33.33, 66.67, 0, 0, 0, 0, 0, 0, 0, 0 }, DisplayName = "Тест округления процентов")]
-        [DataRow(4, new double[] { 0, 0, 0, 0, 10, 10, 80, 0, 0, 0, 0, 0 }, DisplayName = "Тест группировки по имени продукта")]
-        public void TestGetSeasonSales(int testCaseIndex, double[] expectedMonthlyGrowth)
-        {
-            // Arrange
-            SetupTestProducts(testCaseIndex);
+            // Act: вызываем метод GetSeasonSales
+            BindingList<SeasonProductInfo> result = salesHistory.GetSeasonSales();
 
-            // Act
-            var result = salesHistory.GetSeasonSales();
-
-            // Assert
+            // Assert: если список пустой, проверяем, что он пустой
             if (testCaseIndex == 0)
             {
-                Assert.AreEqual(0, result.Count, "Должен вернуть пустой список при отсутствии продаж");
+                Assert.AreEqual(0, result.Count, "Ожидается пустой список при отсутствии продаж.");
                 return;
             }
 
-            var product = result.First();
-            var actualMonthlyGrowth = new double[]
+            // Создаем ожидаемый объект SeasonProductInfo на основе входных данных
+            double[] expectedGrowth = expectedGrowthCsv.Split(',')
+                .Select(s => Math.Round(double.Parse(s.Trim(), CultureInfo.InvariantCulture), 2))
+                .ToArray();
+
+            SeasonProductInfo expected = new SeasonProductInfo
             {
-                product.JanuaryGrowth,
-                product.FebruaryGrowth,
-                product.MarchGrowth,
-                product.AprilGrowth,
-                product.MayGrowth,
-                product.JuneGrowth,
-                product.JulyGrowth,
-                product.AugustGrowth,
-                product.SeptemberGrowth,
-                product.OctoberGrowth,
-                product.NovemberGrowth,
-                product.DecemberGrowth
+                Name = expectedName,
+                JanuaryGrowth = expectedGrowth[0],
+                FebruaryGrowth = expectedGrowth[1],
+                MarchGrowth = expectedGrowth[2],
+                AprilGrowth = expectedGrowth[3],
+                MayGrowth = expectedGrowth[4],
+                JuneGrowth = expectedGrowth[5],
+                JulyGrowth = expectedGrowth[6],
+                AugustGrowth = expectedGrowth[7],
+                SeptemberGrowth = expectedGrowth[8],
+                OctoberGrowth = expectedGrowth[9],
+                NovemberGrowth = expectedGrowth[10],
+                DecemberGrowth = expectedGrowth[11]
             };
 
-            CollectionAssert.AreEqual(expectedMonthlyGrowth, actualMonthlyGrowth,
-                $"Ожидаемые проценты по месяцам: {string.Join(", ", expectedMonthlyGrowth)}. " +
-                $"Фактические: {string.Join(", ", actualMonthlyGrowth)}");
+            // Получаем фактический объект (например, первый в списке)
+            SeasonProductInfo actual = result.First();
+
+            // Помещаем объекты в списки и сравниваем их через CollectionAssert
+            var expectedList = new List<SeasonProductInfo> { expected };
+            var actualList = new List<SeasonProductInfo> { actual };
+
+            CollectionAssert.AreEqual(expectedList, actualList);
         }
     }
 }
