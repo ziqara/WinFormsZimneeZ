@@ -5,20 +5,21 @@ using System.Globalization;
 using System.Linq;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using MyLib;
+using MyLib.Services;
 
 namespace Testing
 {
     [TestClass]
     public class TSalesHistory
     {
-        private SalesHistory salesHistory;
+        private SalesRepository salesRepository;
         // Тестовые случаи: каждая коллекция продаж для одного теста
         private List<List<ProductInfo>> _allTestCases = new List<List<ProductInfo>>();
 
         [TestInitialize]
         public void TestInitialize()
         {
-            salesHistory = new SalesHistory();
+            salesRepository = new SalesRepository();
 
             _allTestCases.Clear();
 
@@ -56,35 +57,37 @@ namespace Testing
         }
 
         [DataTestMethod]
-        [DataRow(0, "Product1", "0,0,0,0,0,100,0,0,0,0,0,0", DisplayName = "Тест пустого списка продаж")]
-        [DataRow(1, "Product1", "0,0,0,0,0,100,0,0,0,0,0,0", DisplayName = "Тест продажи одного продукта в июне")]
-        [DataRow(2, "Product2", "20,80,0,0,0,0,0,0,0,0,0,0", DisplayName = "Тест нескольких продаж одного продукта")]
+        [DataRow(0, "", "0,0,0,0,0,0,0,0,0,0,0,0", DisplayName = "Пустой список продаж")]
+        [DataRow(1, "Product1", "0,0,0,0,0,100,0,0,0,0,0,0", DisplayName = "Одна продажа в июне")]
+        [DataRow(2, "Product2", "20,80,0,0,0,0,0,0,0,0,0,0", DisplayName = "Несколько продаж одного продукта")]
         [DataRow(3, "Product3", "0,0,33.33,66.67,0,0,0,0,0,0,0,0", DisplayName = "Тест округления процентов")]
-        [DataRow(4, "Product4", "0,0,0,0,10,10,80,0,0,0,0,0", DisplayName = "Тест группировки по имени продукта")]
+        [DataRow(4, "Product4", "0,0,0,0,10,10,80,0,0,0,0,0", DisplayName = "Группировка по продукту")]
         public void TestGetSeasonSales(int testCaseIndex, string expectedName, string expectedGrowthCsv)
         {
-            // Arrange: создаём новый экземпляр SalesHistory и добавляем данные из тестового случая
-            salesHistory = new SalesHistory();
+            // Arrange: создаем новый экземпляр репозитория и добавляем данные тестового случая
+            salesRepository = new SalesRepository();
             foreach (var product in _allTestCases[testCaseIndex])
             {
-                salesHistory.AddSales(product);
+                salesRepository.AddSales(product);
             }
 
-            // Act: вызываем метод GetSeasonSales
-            BindingList<SeasonProductInfo> result = salesHistory.GetSeasonSales();
+            // Act: создаем сервис для сезонного анализа и вызываем метод GetSeasonSales
+            SeasonSalesHistoryService service = new SeasonSalesHistoryService(salesRepository);
+            BindingList<SeasonProductInfo> result = service.GetSeasonSales();
 
-            // Assert: если список пустой, проверяем, что он пустой
+            // Если тестовый случай пустой, проверяем, что список пуст
             if (testCaseIndex == 0)
             {
                 Assert.AreEqual(0, result.Count, "Ожидается пустой список при отсутствии продаж.");
                 return;
             }
 
-            // Создаем ожидаемый объект SeasonProductInfo на основе входных данных
+            // Парсинг ожидаемых процентных значений из CSV-строки
             double[] expectedGrowth = expectedGrowthCsv.Split(',')
                 .Select(s => Math.Round(double.Parse(s.Trim(), CultureInfo.InvariantCulture), 2))
                 .ToArray();
 
+            // Формируем ожидаемый объект
             SeasonProductInfo expected = new SeasonProductInfo
             {
                 Name = expectedName,
@@ -102,10 +105,11 @@ namespace Testing
                 DecemberGrowth = expectedGrowth[11]
             };
 
-            // Получаем фактический объект (например, первый в списке)
+            // Получаем фактический объект (первый в списке)
             SeasonProductInfo actual = result.First();
 
-            // Помещаем объекты в списки и сравниваем их через CollectionAssert
+            // Если класс SeasonProductInfo реализует корректное сравнение (Equals/GetHashCode),
+            // можно сравнить списки напрямую:
             var expectedList = new List<SeasonProductInfo> { expected };
             var actualList = new List<SeasonProductInfo> { actual };
 

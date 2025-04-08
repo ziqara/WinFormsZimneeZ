@@ -1,26 +1,26 @@
-﻿using MyLib;
-using System;
+﻿using System;
 using System.ComponentModel;
 using System.Drawing;
 using System.Linq;
 using System.Windows.Forms;
-using static System.Windows.Forms.VisualStyles.VisualStyleElement;
+using MyLib;
+using MyLib.Services;
 
 namespace WinFormsZimneeZ
 {
     public partial class SeasonForm : Form
     {
-        public SalesHistory History { get; set; }
+        private SeasonSalesHistoryService seasonService;
         private BindingList<SeasonProductInfo> _allSeasonData;
 
-        public SeasonForm(SalesHistory history)
+        public SeasonForm(SalesRepository repository)
         {
             InitializeComponent();
             InitializeStyles();
-            History = history;
-            // Получаем сезонные данные и сразу группируем их
-            _allSeasonData = History.GroupProducts(History.GetSeasonSales());
-            SeasonTable.DataSource  = _allSeasonData;
+            seasonService = new SeasonSalesHistoryService(repository);
+            // Получаем сезонные данные и сразу группируем их.
+            _allSeasonData = seasonService.GroupProducts(seasonService.GetSeasonSales());
+            SeasonTable.DataSource = _allSeasonData;
         }
 
         private void InitializeStyles()
@@ -85,43 +85,31 @@ namespace WinFormsZimneeZ
         private void SetDataCellBackgroundColor(DataGridView grid, string hexColor)
         {
             foreach (DataGridViewRow row in grid.Rows)
-            {
                 foreach (DataGridViewCell cell in row.Cells)
-                {
                     if (cell.Value != null && !string.IsNullOrEmpty(cell.Value.ToString()))
                     {
                         cell.Style.BackColor = ColorTranslator.FromHtml(hexColor);
                         cell.Style.ForeColor = Color.White;
                     }
-                }
-            }
         }
 
         private void ApplyDataCellStyle(DataGridView grid, string hexColor)
         {
             grid.DefaultCellStyle.Font = new Font("Segoe UI", 9.75f, FontStyle.Bold);
             foreach (DataGridViewRow row in grid.Rows)
-            {
                 foreach (DataGridViewCell cell in row.Cells)
-                {
                     if (cell.Value != null && !string.IsNullOrEmpty(cell.Value.ToString()))
                     {
                         cell.Style.BackColor = ColorTranslator.FromHtml(hexColor);
                         cell.Style.ForeColor = Color.Black;
                     }
-                }
-            }
         }
 
         private void FilterSeason_Click(object sender, EventArgs e)
         {
-            // Читаем порог из текстового поля (если задан)
             double threshold;
             bool thresholdProvided = double.TryParse(SeasonBox.Text, out threshold);
-
-            // Получаем выбранный месяц из ComboBox.
-            // Предполагается, что в ComboBox есть элементы: "Все", "Январь", "Февраль", ..., "Декабрь".
-            int selectedMonth = 0; // 0 означает "Все"
+            int selectedMonth = 0;
             if (monthComboBox.SelectedItem != null)
             {
                 string selected = monthComboBox.SelectedItem.ToString();
@@ -146,12 +134,10 @@ namespace WinFormsZimneeZ
             }
 
             BindingList<SeasonProductInfo> filteredData = null;
-            // Если заданы и месяц, и порог – фильтруем по выбранному месяцу с порогом.
             if (selectedMonth > 0 && thresholdProvided)
             {
-                filteredData = History.FilterSeasonProductsByMonth(_allSeasonData, selectedMonth, threshold);
+                filteredData = seasonService.FilterSeasonProductsByMonth(_allSeasonData, selectedMonth, threshold);
             }
-            // Если задан только месяц – оставляем записи, у которых значение для этого месяца > 0.
             else if (selectedMonth > 0)
             {
                 filteredData = new BindingList<SeasonProductInfo>(
@@ -177,30 +163,22 @@ namespace WinFormsZimneeZ
                     }).ToList()
                 );
             }
-            // Если задан только порог – фильтруем по глобальному максимуму.
             else if (thresholdProvided)
             {
-                filteredData = History.FilterSeasonProductsByThreshold(_allSeasonData, threshold);
-                
+                filteredData = seasonService.FilterSeasonProductsByThreshold(_allSeasonData, threshold);
             }
-            // Если ни один критерий не задан – отображаем все данные.
             else
             {
                 filteredData = _allSeasonData;
-                
             }
 
-            // Если после фильтрации данных не найдено, можно вывести сообщение.
             if (filteredData == null || filteredData.Count == 0)
             {
                 MessageBox.Show("Нет товаров, удовлетворяющих заданным критериям.", "Информация", MessageBoxButtons.OK);
-                
             }
-
             SeasonTable.DataSource = filteredData;
             SetDataGridStyles();
         }
-
 
         private void BackButt_Click(object sender, EventArgs e)
         {
@@ -222,21 +200,18 @@ namespace WinFormsZimneeZ
             }
         }
 
-        private void SeasonForm_Load(object sender, EventArgs e)
+        private void resetbutton_Click(object sender, EventArgs e)
         {
+            _allSeasonData = seasonService.GroupProducts(seasonService.GetSeasonSales());
+            SeasonTable.DataSource = _allSeasonData;
+            monthComboBox.SelectedIndex = -1;
+            monthComboBox.Text = string.Empty;
+            SeasonBox.Clear();
             SetDataGridStyles();
         }
 
-        private void resetbutton_Click(object sender, EventArgs e)
+        private void SeasonForm_Load(object sender, EventArgs e)
         {
-            SeasonTable.DataSource = History.GroupProducts(History.GetSeasonSales());
-
-            // Сброс ComboBox
-            monthComboBox.SelectedIndex = -1;
-            monthComboBox.Text = string.Empty;
-
-            // Сброс TextBox
-            SeasonBox.Clear();
             SetDataGridStyles();
         }
     }

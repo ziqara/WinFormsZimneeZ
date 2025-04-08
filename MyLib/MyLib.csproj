@@ -42,12 +42,15 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="GeneralSalesHistoryService.cs" />
     <Compile Include="LoadCsvSaveHtml.cs" />
     <Compile Include="ProductInfo.cs" />
-    <Compile Include="SalesHistory.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="SalesRepository.cs" />
     <Compile Include="SeasonProductInfo.cs" />
+    <Compile Include="SeasonSalesHistoryService.cs" />
     <Compile Include="TrendingProduct.cs" />
+    <Compile Include="TrendSalesHistoryService.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

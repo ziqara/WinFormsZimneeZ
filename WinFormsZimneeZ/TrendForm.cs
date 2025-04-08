@@ -1,37 +1,38 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.ComponentModel;
-using System.Data;
 using System.Drawing;
 using System.Linq;
-using System.Reflection.Emit;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 using MyLib;
+using MyLib.Services;
 
 namespace WinFormsZimneeZ
 {
     public partial class TrendForm : Form
     {
-        public SalesHistory History { get; set; }
-        public TrendForm(SalesHistory history)
+        private SalesRepository repository;
+        private TrendSalesHistoryService trendService;
+
+        public TrendForm(SalesRepository repository)
         {
-            History = history;
             InitializeComponent();
-            // Загружаем все агрегированные данные, преобразованные в TrendingProduct с IncreaseFactor = 0
-            TrendTable.DataSource = ConvertToTrendingProducts(History.GetGroupedProducts());
+            this.repository = repository;
+            // Создаем сервис трендовых продаж, передавая SalesRepository
+            trendService = new TrendSalesHistoryService(repository);
+            // Отображаем данные по умолчанию:
+            GeneralSalesHistoryService generalService = new GeneralSalesHistoryService(repository);
+            TrendTable.DataSource = ConvertToTrendingProducts(generalService.GetGroupedProducts());
             TrendTable.DataBindingComplete += TrendTable_DataBindingComplete;
             InitializeStyles();
-
         }
+
         private void TrendTable_DataBindingComplete(object sender, DataGridViewBindingCompleteEventArgs e)
         {
             SetDataGridStyles();
         }
+
         private void InitializeStyles()
         {
-
             label1.ForeColor = ColorTranslator.FromHtml("#778da9");
             Trend.ForeColor = ColorTranslator.FromHtml("#778da9");
             TrendBox.BackColor = ColorTranslator.FromHtml("#778da9");
@@ -72,19 +73,17 @@ namespace WinFormsZimneeZ
             TrendTable.BackgroundColor = ColorTranslator.FromHtml("#0d1b2a");
             this.BackColor = ColorTranslator.FromHtml("#0d1b2a");
         }
+
         private void SetDataGridStyles()
         {
             SetDataCellBackgroundColor(TrendTable, "#415a77");
             TrendTable.AllowUserToAddRows = false;
             if (TrendTable.CurrentCell != null)
                 TrendTable.CurrentCell.Selected = false;
-
-            // Устанавливаем стиль для заголовков столбцов
             SetHeaderStyles(TrendTable);
-
-            // Применяем стиль к ячейкам (если нужно)
             ApplyDataCellStyle(TrendTable, "#778da9");
         }
+
         private void SetHeaderStyles(DataGridView grid)
         {
             Font headerFont = new Font("Segoe UI", 9.75f, FontStyle.Bold);
@@ -95,6 +94,7 @@ namespace WinFormsZimneeZ
                 col.HeaderCell.Style.ForeColor = ColorTranslator.FromHtml("#778da9");
             }
         }
+
         private void ApplyDataCellStyle(DataGridView grid, string hexColor)
         {
             Font font = new Font("Segoe UI", 9.75f, FontStyle.Bold);
@@ -105,7 +105,6 @@ namespace WinFormsZimneeZ
                 {
                     if (cell.Value != null && !string.IsNullOrEmpty(cell.Value.ToString()))
                     {
-                        // Явно задаём шрифт для каждой ячейки
                         cell.Style.Font = font;
                         cell.Style.BackColor = ColorTranslator.FromHtml(hexColor);
                         cell.Style.ForeColor = Color.Black;
@@ -113,6 +112,7 @@ namespace WinFormsZimneeZ
                 }
             }
         }
+
         private void SetDataCellBackgroundColor(DataGridView grid, string hexColor)
         {
             foreach (DataGridViewRow row in grid.Rows)
@@ -137,15 +137,14 @@ namespace WinFormsZimneeZ
                                 "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
-            // Используем текущую дату как точку отсчёта
             DateTime referenceDate = DateTime.Today;
-            double minIncrease = 2.0; // Например, товар считается трендовым, если продажи увеличились в 2 и более раза.
+            double minIncrease = 2.0;
             LoadTrendingProducts(referenceDate, weeks, minIncrease);
         }
 
         private void LoadTrendingProducts(DateTime referenceDate, int trendingWeeks, double minIncrease)
         {
-            BindingList<TrendingProduct> trendingProducts = History.FindTrendingProducts(referenceDate, trendingWeeks, minIncrease);
+            BindingList<TrendingProduct> trendingProducts = trendService.FindTrendingProducts(referenceDate, trendingWeeks, minIncrease);
             TrendTable.DataSource = trendingProducts;
             if (trendingProducts.Count == 0)
             {
@@ -156,13 +155,13 @@ namespace WinFormsZimneeZ
 
         private void ResetTableButton_Click(object sender, EventArgs e)
         {
-            // Сброс TextBox
             TrendBox.Clear();
             FiltrBox.Clear();
-
-            TrendTable.DataSource = ConvertToTrendingProducts(History.GetGroupedProducts()); ;
+            // Создаем новый экземпляр GeneralSalesHistoryService с общим репозиторием
+            GeneralSalesHistoryService generalService = new GeneralSalesHistoryService(repository);
+            TrendTable.DataSource = ConvertToTrendingProducts(generalService.GetGroupedProducts());
         }
-        // Преобразует список ProductInfo в список TrendingProduct с IncreaseFactor = 0
+
         private BindingList<TrendingProduct> ConvertToTrendingProducts(BindingList<ProductInfo> products)
         {
             var list = products.Select(p => new TrendingProduct
@@ -175,7 +174,6 @@ namespace WinFormsZimneeZ
             return new BindingList<TrendingProduct>(list);
         }
 
-
         private void FiltrButton_Click(object sender, EventArgs e)
         {
             double threshold;
@@ -184,23 +182,18 @@ namespace WinFormsZimneeZ
                 MessageBox.Show("Введите корректное положительное число для фильтра.", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
-
-            // Предполагаем, что TrendTable.DataSource уже содержит список TrendingProduct
             BindingList<TrendingProduct> currentList = TrendTable.DataSource as BindingList<TrendingProduct>;
             if (currentList == null)
             {
                 MessageBox.Show("Нет данных для фильтрации.", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
-
             var filtered = currentList.Where(tp => tp.IncreaseFactor >= threshold).ToList();
             BindingList<TrendingProduct> filteredList = new BindingList<TrendingProduct>(filtered);
-
             if (filteredList.Count == 0)
             {
-                MessageBox.Show($"Нет товаров с IncreaseFactor ≥ {threshold}.", "Информация", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                MessageBox.Show($"Нет товаров с ростом ≥ {threshold}.", "Информация", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
-
             TrendTable.DataSource = filteredList;
         }
 

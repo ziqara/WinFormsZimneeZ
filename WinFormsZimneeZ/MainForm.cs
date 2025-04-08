@@ -1,32 +1,31 @@
-﻿using MyLib;
-using System;
+﻿using System;
 using System.ComponentModel;
 using System.Drawing;
 using System.Windows.Forms;
+using MyLib;
+using MyLib.Services;
 
 namespace WinFormsZimneeZ
 {
     public partial class MainForm : Form
     {
-        private SalesHistory History;
+        private GeneralSalesHistoryService generalService;
+        private SalesRepository repository;
         private LoadCsvSaveHtml csvLoader;
 
         public MainForm()
         {
             InitializeComponent();
-            History = new SalesHistory();
+            repository = new SalesRepository();
             csvLoader = new LoadCsvSaveHtml();
-
-            History.AddAllSales();
-            // Отображаем сгруппированные продажи
-            ProductTable.DataSource = History.GetGroupedProducts();
+            repository.AddAllSales();  // Заполняем данными
+            generalService = new GeneralSalesHistoryService(repository);
+            ProductTable.DataSource = generalService.GetGroupedProducts();
             InitializeStyles();
         }
 
-
         private void InitializeStyles()
         {
-
             ProductTable.ColumnHeadersDefaultCellStyle.Font = new Font("Segoe UI", 9.75f, FontStyle.Bold);
             MenuFiltr.BackColor = ColorTranslator.FromHtml("#0d1b2a");
             DefStripButton.ForeColor = ColorTranslator.FromHtml("#778da9");
@@ -48,7 +47,6 @@ namespace WinFormsZimneeZ
 
             ProductTable.BackgroundColor = ColorTranslator.FromHtml("#0d1b2a");
             this.BackColor = ColorTranslator.FromHtml("#0d1b2a");
-
         }
 
         private void MainForn_Load(object sender, EventArgs e)
@@ -70,37 +68,29 @@ namespace WinFormsZimneeZ
         private void SetDataCellBackgroundColor(DataGridView grid, string hexColor)
         {
             foreach (DataGridViewRow row in grid.Rows)
-            {
                 foreach (DataGridViewCell cell in row.Cells)
-                {
                     if (cell.Value != null && !string.IsNullOrEmpty(cell.Value.ToString()))
                     {
                         cell.Style.BackColor = ColorTranslator.FromHtml(hexColor);
                         cell.Style.ForeColor = Color.White;
                     }
-                }
-            }
         }
 
         private void ApplyDataCellStyle(DataGridView grid, string hexColor)
         {
             grid.DefaultCellStyle.Font = new Font("Segoe UI", 9.75f, FontStyle.Bold);
             foreach (DataGridViewRow row in grid.Rows)
-            {
                 foreach (DataGridViewCell cell in row.Cells)
-                {
                     if (cell.Value != null && !string.IsNullOrEmpty(cell.Value.ToString()))
                     {
                         cell.Style.BackColor = ColorTranslator.FromHtml(hexColor);
                         cell.Style.ForeColor = Color.Black;
                     }
-                }
-            }
         }
 
         private void SeasonButton_Click(object sender, EventArgs e)
         {
-            SeasonForm seasonForm = new SeasonForm(History);
+            SeasonForm seasonForm = new SeasonForm(repository);
             seasonForm.Show();
             SetDataGridStyles();
             this.ActiveControl = null;
@@ -108,14 +98,13 @@ namespace WinFormsZimneeZ
 
         private void defStripButton_Click(object sender, EventArgs e)
         {
-            BindingList<ProductInfo> zeroResidueProducts = History.GetProductsWithZeroResidueAndLatestSale();
-            ProductTable.DataSource = zeroResidueProducts;
+            ProductTable.DataSource = generalService.GetProductsWithZeroResidueAndLatestSale();
             SetDataGridStyles();
         }
 
         private void toolStripButton2_Click(object sender, EventArgs e)
         {
-            ProductTable.DataSource = History.ShowBestSellingProducts();
+            ProductTable.DataSource = generalService.ShowBestSellingProducts();
             SetDataGridStyles();
         }
 
@@ -131,20 +120,32 @@ namespace WinFormsZimneeZ
             {
                 try
                 {
-                    History = csvLoader.LoadCsvData(dlg.FileName, History);
-                    ProductTable.DataSource = History.GetGroupedProducts();
+                    // Создаем временный репозиторий и заполняем его данными из CSV
+                    SalesRepository tempRepository = new SalesRepository();
+                    tempRepository = csvLoader.LoadCsvData(dlg.FileName, tempRepository);
+
+                    // Обновляем основной репозиторий данными из временного
+                    repository = new SalesRepository();
+                    foreach (var prod in tempRepository.AllSales)
+                    {
+                        repository.AddSales(prod);
+                    }
+
+                    // Обновляем источник данных таблицы через сервис
+                    ProductTable.DataSource = generalService.GetGroupedProducts();
                     InitializeStyles();
                     SetDataGridStyles();
                     MessageBox.Show("Данные успешно загружены", "Успех",
-                                  MessageBoxButtons.OK, MessageBoxIcon.Information);
+                                      MessageBoxButtons.OK, MessageBoxIcon.Information);
                 }
                 catch (Exception ex)
                 {
                     MessageBox.Show($"Ошибка: {ex.Message}", "Ошибка",
-                                  MessageBoxButtons.OK, MessageBoxIcon.Error);
+                                      MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
             }
         }
+
 
         private void SaveToolStrip_Click(object sender, EventArgs e)
         {
@@ -162,19 +163,19 @@ namespace WinFormsZimneeZ
 
         private void rdtToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            ProductTable.DataSource = History.GetGroupedProducts();
+            ProductTable.DataSource = generalService.GetGroupedProducts();
             SetDataGridStyles();
         }
 
         private void TurnList_Click(object sender, EventArgs e)
         {
-            ProductTable.DataSource = History.GetAllSales();
+            ProductTable.DataSource = generalService.GetAllSales();
             SetDataGridStyles();
         }
 
         private void TrendButton_Click(object sender, EventArgs e)
         {
-            TrendForm trendForm = new TrendForm(History);
+            TrendForm trendForm = new TrendForm(repository);
             trendForm.Show();
             SetDataGridStyles();
             this.ActiveControl = null;

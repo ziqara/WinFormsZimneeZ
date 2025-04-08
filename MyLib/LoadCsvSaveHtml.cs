@@ -14,15 +14,17 @@ namespace MyLib
 {
     public class LoadCsvSaveHtml
     {
-        public SalesHistory LoadCsvData(string filePath, SalesHistory products)
+        public SalesRepository LoadCsvData(string filePath, SalesRepository repository)
         {
             try
             {
-                products.ClearSales(); // Очищаем существующие данные
+                // Очищаем существующие данные в репозитории
+                repository.AllSales.Clear();
 
                 using (StreamReader reader = new StreamReader(filePath))
                 {
-                    reader.ReadLine(); // Пропускаем заголовок
+                    // Пропускаем строку заголовка
+                    reader.ReadLine();
 
                     while (!reader.EndOfStream)
                     {
@@ -36,12 +38,12 @@ namespace MyLib
                                 string name = values[0];
                                 string category = values[1];
                                 decimal price = decimal.Parse(values[2], CultureInfo.InvariantCulture);
-                                int quantitysold = int.Parse(values[3]);
+                                int quantitySold = int.Parse(values[3]);
                                 int residue = int.Parse(values[4]);
                                 DateTime lastSell = DateTime.Parse(values[5]);
 
-                                ProductInfo product = new ProductInfo(name, category, price, quantitysold, residue, lastSell);
-                                products.AddSales(product);
+                                ProductInfo product = new ProductInfo(name, category, price, quantitySold, residue, lastSell);
+                                repository.AddSales(product);
                             }
                             catch (FormatException ex)
                             {
@@ -54,13 +56,14 @@ namespace MyLib
                         }
                     }
                 }
-                return products;
+                return repository;
             }
             catch (Exception ex)
             {
                 throw new Exception($"Ошибка при чтении файла: {ex.Message}");
             }
         }
+
 
         public static void SaveDataGridViewToHtml(DataGridView dataGridView, string filePath)
         {
