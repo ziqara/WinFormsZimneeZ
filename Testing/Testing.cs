@@ -10,7 +10,7 @@ using MyLib.Services;
 namespace Testing
 {
     [TestClass]
-    public class TSalesHistory
+    public class TSeasonSalesHistoryService
     {
         private SalesRepository salesRepository;
         // Тестовые случаи: каждая коллекция продаж для одного теста
