@@ -55,7 +55,8 @@ namespace Testing
         {
             // Act
             var result = new SeasonSalesHistoryService(_repository).GetSeasonSales();
-            var product = result.First(p => p.Name == productName);
+            var productsDict = result.ToDictionary(p => p.Name);
+            var product = productsDict[productName];
 
             // Assert
             var actualDistribution = new[]
@@ -72,12 +73,9 @@ namespace Testing
             product.OctoberGrowth,
             product.NovemberGrowth,
             product.DecemberGrowth
-        };
+            };
 
-            CollectionAssert.AreEqual(
-                expectedDistribution,
-                actualDistribution,
-                $"Неверное распределение продаж для {productName}");
+            CollectionAssert.AreEqual(expectedDistribution, actualDistribution);
         }
     }
 }
