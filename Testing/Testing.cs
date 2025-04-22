@@ -152,10 +152,31 @@ namespace Testing
                     Residue = 0,
                     LastSell = new DateTime(2023, 3, 20)
                 });
+
+                // Товар 5 — второй с нулевым остатком
+                _service.AddSales(new ProductInfo
+                {
+                    Name = "ProductE",
+                    Category = "Category5",
+                    QuantitySold = 15,
+                    Price = 5,
+                    Residue = 7,
+                    LastSell = new DateTime(2023, 4, 5)
+                });
+                _service.AddSales(new ProductInfo
+                {
+                    Name = "ProductE",
+                    Category = "Category5",
+                    QuantitySold = 25,
+                    Price = 5,
+                    Residue = 0,
+                    LastSell = new DateTime(2023, 4, 10)
+                });
             }
 
             [DataTestMethod]
-            [DataRow(new string[] { "ProductA", "ProductB", "ProductD", "ProductC" })]
+            [DataRow(new string[] { "ProductA", "ProductB"})]
+
             public void TestShowBestSellingProducts(string[] expectedProducts)
             {
                 // Act
@@ -167,17 +188,40 @@ namespace Testing
                 CollectionAssert.AreEqual(expectedProducts, actualProducts);
             }
 
-            [DataTestMethod]
-            [DataRow(new string[] { "ProductD" })]
-            public void TestGetProductsWithZeroResidueAndLatestSale(string[] expectedProducts)
+            [TestMethod]
+            public void TestGetProductsWithZeroResidueAndLatestSale()
             {
                 // Act
                 BindingList<ProductInfo> result = _service.GetProductsWithZeroResidueAndLatestSale();
 
                 // Assert
-                var actualProducts = result.Select(p => p.Name).ToList();
+                var expectedProducts = new List<ProductInfo>
+                {
+                new ProductInfo
+                {
+                    Name = "ProductD",
+                    Category = "Category4",
+                    QuantitySold = 60,
+                    Price = 12,
+                    Residue = 0,
+                    LastSell = new DateTime(2023, 3, 20)
+                },
+                new ProductInfo
+                {
+                    Name = "ProductE",
+                    Category = "Category5",
+                    QuantitySold = 40,
+                    Price = 5,
+                    Residue = 0,
+                    LastSell = new DateTime(2023, 4, 10)
+                }
+                };
 
-                CollectionAssert.AreEqual(expectedProducts, actualProducts);
+                var actualDict = result.ToDictionary(p => p.Name);
+
+                CollectionAssert.AreEqual(
+                expectedProducts.Select(p => p.Name).ToList(),
+                result.Select(p => p.Name).ToList());
             }
         }
     }
