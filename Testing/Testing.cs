@@ -175,7 +175,7 @@ namespace Testing
             }
 
             [DataTestMethod]
-            [DataRow(new string[] { "ProductA", "ProductB"})]
+            [DataRow(new string[] {"ProductA", "ProductB", "ProductD", "ProductE", "ProductC"} )]
 
             public void TestShowBestSellingProducts(string[] expectedProducts)
             {
@@ -194,34 +194,33 @@ namespace Testing
                 // Act
                 BindingList<ProductInfo> result = _service.GetProductsWithZeroResidueAndLatestSale();
 
+                List<ProductInfo> act = result.ToList();
+
                 // Assert
-                var expectedProducts = new List<ProductInfo>
+                List<ProductInfo> expectedProducts = new List<ProductInfo>
                 {
-                new ProductInfo
-                {
+                    new ProductInfo
+                    {
                     Name = "ProductD",
                     Category = "Category4",
                     QuantitySold = 60,
                     Price = 12,
                     Residue = 0,
                     LastSell = new DateTime(2023, 3, 20)
-                },
-                new ProductInfo
-                {
+                    },
+                    new ProductInfo
+                    {
                     Name = "ProductE",
                     Category = "Category5",
                     QuantitySold = 40,
                     Price = 5,
                     Residue = 0,
                     LastSell = new DateTime(2023, 4, 10)
-                }
+                    }
                 };
 
-                var actualDict = result.ToDictionary(p => p.Name);
-
-                CollectionAssert.AreEqual(
-                expectedProducts.Select(p => p.Name).ToList(),
-                result.Select(p => p.Name).ToList());
+                //var actualDict = result.ToDictionary(p => p.Name);
+                CollectionAssert.AreEqual( expectedProducts, act);
             }
         }
     }

@@ -67,7 +67,7 @@ namespace MyLib.Services
                     };
                 })
                 .OrderByDescending(x => x.TotalQuantitySold)
-                .Take(2);
+                .Take(10);
 
             BindingList<ProductInfo> bestSellingProducts = new BindingList<ProductInfo>();
 
